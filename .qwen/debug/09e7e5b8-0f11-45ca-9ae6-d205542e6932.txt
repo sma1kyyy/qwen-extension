@@ -1,0 +1,128 @@
+2026-06-02T15:40:35.071Z [DEBUG] [PRECONNECT] Skipping preconnect dispatcher: no proxy configured
+2026-06-02T15:40:35.078Z [INFO] [THEME_DETECT] Detected theme from OSC 11 background query: dark
+2026-06-02T15:40:35.078Z [INFO] [THEME_MANAGER] Auto-detected theme (async): Qwen Dark
+2026-06-02T15:40:35.072Z [DEBUG] [EARLY_INPUT] Starting early input capture
+2026-06-02T15:40:35.096Z [DEBUG] [EARLY_INPUT] Stopped early input capture: 0 bytes
+2026-06-02T15:40:35.212Z [INFO] Config initialization started
+2026-06-02T15:40:35.220Z [DEBUG] [BUNDLED_SKILL_LOADER] SkillManager not available, skipping bundled skills
+2026-06-02T15:40:35.220Z [DEBUG] [SKILL_COMMAND_LOADER] SkillManager not available, skipping skill commands
+2026-06-02T15:40:35.261Z [DEBUG] Extension manager initialized
+2026-06-02T15:40:35.262Z [DEBUG] [HOOK_REGISTRY] Hook registry initialized with 0 hook entries
+2026-06-02T15:40:35.272Z [DEBUG] [TRUSTED_HOOKS] Hook system initialized successfully
+2026-06-02T15:40:35.272Z [DEBUG] Hook system initialized
+2026-06-02T15:40:35.272Z [DEBUG] MessageBus initialized with hook subscription
+2026-06-02T15:40:35.272Z [INFO] [SKILL_MANAGER] Starting skill directory watchers...
+2026-06-02T15:40:35.301Z [INFO] [SKILL_MANAGER] Refreshing skills cache...
+2026-06-02T15:40:35.301Z [DEBUG] [SKILL_MANAGER] Skipping project-level skills: project root is home directory
+2026-06-02T15:40:35.301Z [DEBUG] [SKILL_MANAGER] Loading user level skills from: /home/kirill/.qwen/skills
+2026-06-02T15:40:35.301Z [DEBUG] [SKILL_MANAGER] Loading skills from directory: /home/kirill/.qwen/skills
+2026-06-02T15:40:35.301Z [DEBUG] [SKILL_MANAGER] Loading user level skills from: /home/kirill/.agents/skills
+2026-06-02T15:40:35.301Z [DEBUG] [SKILL_MANAGER] Loading skills from directory: /home/kirill/.agents/skills
+2026-06-02T15:40:35.302Z [DEBUG] [SKILL_MANAGER] Loaded 0 extension-level skills from 0 extensions
+2026-06-02T15:40:35.302Z [DEBUG] [SKILL_MANAGER] Loading bundled skills from: /usr/lib/node_modules/@qwen-code/qwen-code/bundled
+2026-06-02T15:40:35.302Z [DEBUG] [SKILL_MANAGER] Loading skills from directory: /usr/lib/node_modules/@qwen-code/qwen-code/bundled
+2026-06-02T15:40:35.302Z [DEBUG] [SKILL_MANAGER] Loaded 0 extension level skills
+2026-06-02T15:40:35.302Z [DEBUG] [SKILL_MANAGER] Loaded 0 project level skills
+2026-06-02T15:40:35.308Z [DEBUG] [SKILL_MANAGER] Cannot read skills directory /home/kirill/.agents/skills: ENOENT: no such file or directory, scandir '/home/kirill/.agents/skills'
+2026-06-02T15:40:35.308Z [DEBUG] [SKILL_MANAGER] Found 0 entries in /home/kirill/.qwen/skills
+2026-06-02T15:40:35.308Z [DEBUG] [SKILL_MANAGER] Loaded 0 user level skills
+2026-06-02T15:40:35.308Z [DEBUG] [SKILL_MANAGER] Loaded 0 user level skills
+2026-06-02T15:40:35.308Z [DEBUG] [SKILL_MANAGER] Found 6 entries in /usr/lib/node_modules/@qwen-code/qwen-code/bundled
+2026-06-02T15:40:35.317Z [DEBUG] [SKILL_MANAGER] Successfully parsed skill: new-app (bundled) from /usr/lib/node_modules/@qwen-code/qwen-code/bundled/new-app/SKILL.md
+2026-06-02T15:40:35.317Z [DEBUG] [SKILL_MANAGER] Successfully parsed skill: loop (bundled) from /usr/lib/node_modules/@qwen-code/qwen-code/bundled/loop/SKILL.md
+2026-06-02T15:40:35.317Z [DEBUG] [SKILL_MANAGER] Successfully parsed skill: qc-helper (bundled) from /usr/lib/node_modules/@qwen-code/qwen-code/bundled/qc-helper/SKILL.md
+2026-06-02T15:40:35.317Z [DEBUG] [SKILL_MANAGER] Successfully parsed skill: batch (bundled) from /usr/lib/node_modules/@qwen-code/qwen-code/bundled/batch/SKILL.md
+2026-06-02T15:40:35.318Z [DEBUG] [SKILL_MANAGER] Successfully parsed skill: stuck (bundled) from /usr/lib/node_modules/@qwen-code/qwen-code/bundled/stuck/SKILL.md
+2026-06-02T15:40:35.327Z [DEBUG] [SKILL_MANAGER] Successfully parsed skill: review (bundled) from /usr/lib/node_modules/@qwen-code/qwen-code/bundled/review/SKILL.md
+2026-06-02T15:40:35.327Z [DEBUG] [SKILL_MANAGER] Loaded 6 bundled level skills
+2026-06-02T15:40:35.327Z [DEBUG] [SKILL_MANAGER] Loaded 6 bundled skills
+2026-06-02T15:40:35.327Z [INFO] [SKILL_MANAGER] Skills cache refreshed: 6 total skills loaded (0 conditional)
+2026-06-02T15:40:35.329Z [INFO] [SKILL_MANAGER] Skill directory watchers started
+2026-06-02T15:40:35.329Z [DEBUG] Skill manager initialized
+2026-06-02T15:40:35.329Z [DEBUG] Permission manager initialized
+2026-06-02T15:40:35.330Z [DEBUG] [MEMORY_DISCOVERY] Loading server hierarchical memory for CWD: /home/kirill (importFormat: tree)
+2026-06-02T15:40:35.349Z [DEBUG] [MEMORY_DISCOVERY] Final ordered QWEN.md,AGENTS.md paths to read: ["/home/kirill/.qwen/output-language.md"]
+2026-06-02T15:40:35.373Z [DEBUG] [MEMORY_DISCOVERY] Successfully read and processed imports: /home/kirill/.qwen/output-language.md (Length: 812)
+2026-06-02T15:40:35.374Z [DEBUG] [RULES_DISCOVERY] Loading rules for project: /home/kirill
+2026-06-02T15:40:35.374Z [DEBUG] [RULES_DISCOVERY] Loaded 0 global rule(s)
+2026-06-02T15:40:35.374Z [DEBUG] [RULES_DISCOVERY] Project rules dir same as global — skipping to avoid duplicates
+2026-06-02T15:40:35.374Z [DEBUG] [RULES_DISCOVERY] Split: 0 baseline, 0 conditional
+2026-06-02T15:40:35.375Z [DEBUG] [RULES_DISCOVERY] ConditionalRulesRegistry created with 0 rule(s)
+2026-06-02T15:40:35.375Z [DEBUG] Hierarchical memory loaded
+2026-06-02T15:40:35.378Z [DEBUG] ToolRegistry created: ["tool_search","agent","task_stop","send_message","skill","list_directory","read_file","grep_search","glob","edit","notebook_edit","write_file","run_shell_command","todo_write","ask_user_question","exit_plan_mode","enter_worktree","exit_worktree","web_fetch","computer_use__click","computer_use__drag","computer_use__get_app_state","computer_use__list_apps","computer_use__perform_secondary_action","computer_use__press_key","computer_use__scroll","computer_use__set_value","computer_use__type_text","monitor"] (29 tools)
+2026-06-02T15:40:35.378Z [INFO] Tool registry initialized with 29 tools
+2026-06-02T15:40:35.424Z [DEBUG] [SKILL_MANAGER] Listing skills
+2026-06-02T15:40:35.424Z [DEBUG] [SKILL_MANAGER] Using cached skills
+2026-06-02T15:40:35.424Z [DEBUG] [SKILL_MANAGER] Processing 0 user level skills
+2026-06-02T15:40:35.424Z [DEBUG] [SKILL_MANAGER] Processing 0 project level skills
+2026-06-02T15:40:35.424Z [DEBUG] [SKILL_MANAGER] Processing 6 bundled level skills
+2026-06-02T15:40:35.424Z [DEBUG] [SKILL_MANAGER] Processing 0 extension level skills
+2026-06-02T15:40:35.424Z [INFO] [SKILL_MANAGER] Listed 6 unique skills
+2026-06-02T15:40:35.427Z [INFO] Gemini client initialized
+2026-06-02T15:40:35.428Z [INFO] Config initialization completed
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Listing skills at level: bundled
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Using cached skills
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Processing 6 bundled level skills
+2026-06-02T15:40:35.448Z [INFO] [SKILL_MANAGER] Listed 6 unique skills
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Listing skills at level: user
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Processing 0 user level skills
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Using cached skills
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Listing skills at level: project
+2026-06-02T15:40:35.448Z [INFO] [SKILL_MANAGER] Listed 0 unique skills
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Using cached skills
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Processing 0 project level skills
+2026-06-02T15:40:35.448Z [INFO] [SKILL_MANAGER] Listed 0 unique skills
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Listing skills at level: extension
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Using cached skills
+2026-06-02T15:40:35.448Z [DEBUG] [SKILL_MANAGER] Processing 0 extension level skills
+2026-06-02T15:40:35.448Z [INFO] [SKILL_MANAGER] Listed 0 unique skills
+2026-06-02T15:40:35.449Z [DEBUG] [BUNDLED_SKILL_LOADER] Hiding skill "loop" because cron is not enabled
+2026-06-02T15:40:35.449Z [DEBUG] [BUNDLED_SKILL_LOADER] Loaded 5 bundled skill(s) as slash commands
+2026-06-02T15:40:35.449Z [DEBUG] [SKILL_COMMAND_LOADER] Loaded 0 user + 0 project + 0 extension skill(s) as slash commands
+2026-06-02T15:40:35.457Z [DEBUG] [IDE] Failed to read IDE connection directory: Error: ENOENT: no such file or directory, scandir '/home/kirill/.qwen/ide'
+    at async Object.readdir (node:internal/fs/promises:953:18)
+    at async _IdeClient.getAllConnectionConfigs (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-7EHPK6TK.js:42775:20)
+    at async _IdeClient.getConnectionConfigFromFile (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-7EHPK6TK.js:42739:21)
+    at async file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-7EHPK6TK.js:42341:35
+2026-06-02T15:40:35.463Z [WARN] [GIT_WORKTREE_SERVICE] getRepoTopLevel failed at /home/kirill: Error: fatal: not a git repository (or any of the parent directories): .git
+
+2026-06-02T15:40:35.464Z [DEBUG] Stale worktree sweep skipped: /home/kirill/.qwen/worktrees does not exist
+2026-06-02T15:42:30.713Z [DEBUG] Received user query (6 chars)
+2026-06-02T15:42:30.740Z [DEBUG] [FILE_HISTORY] FileHistory: Added snapshot for 09e7e5b8-0f11-45ca-9ae6-d205542e6932########0, tracking 0 files
+2026-06-02T15:42:32.555Z [ERROR] [OPENAI_ERROR] OpenAI API Error: 401 Incorrect API key provided. For details, see: https://www.alibabacloud.com/help/en/model-studio/error-code#apikey-error
+2026-06-02T15:42:32.567Z [ERROR] [ERROR_REPORT] Error when talking to API [Turn.run-sendMessageStream] {
+  "error": {
+    "message": "401 Incorrect API key provided. For details, see: https://www.alibabacloud.com/help/en/model-studio/error-code#apikey-error",
+    "stack": "Error: 401 Incorrect API key provided. For details, see: https://www.alibabacloud.com/help/en/model-studio/error-code#apikey-error\n    at APIError.generate (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-JI7FDD65.js:177:14)\n    at OpenAI.makeStatusError (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-JI7FDD65.js:6570:21)\n    at OpenAI.makeRequest (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-JI7FDD65.js:6705:24)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-JI7FDD65.js:7963:24\n    at async ContentGenerationPipeline.executeWithErrorHandling (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-JI7FDD65.js:8189:22)\n    at async LoggingContentGenerator.generateContentStream (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-MEN6IEKX.js:69530:16)\n    at async retryWithBackoff (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-7EHPK6TK.js:28488:22)\n    at async GeminiChat.makeApiCallAndProcessStream (file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-7EHPK6TK.js:36374:28)\n    at async file:///usr/lib/node_modules/@qwen-code/qwen-code/chunks/chunk-7EHPK6TK.js:36046:29"
+  },
+  "context": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "This is the Qwen Code. We are setting up the context for our chat.\nToday's date is Tuesday, June 2, 2026 (formatted according to the user's locale).\nMy operating system is: linux\nI'm currently working in the directory: /home/kirill\nHere is the folder structure of the current working directories:\n\nShowing up to 20 items:\n\n/home/kirill/\n├───.bash_history\n├───.bash_logout\n├───.bash_profile\n├───.bashrc\n├───.claude.json\n├───.claude.json.backup\n├───.claude.json.backup.1771172303206\n├───.claude.json.backup.1771172303215\n├───.claude.json.backup.1771172303222\n├───.claude.json.backup.1771172468587\n├───.claude.json.backup.1771172471314\n├───.fehbg\n├───.gitconfig\n├───.pulse-cookie\n├───.python_history\n├───.taskrc\n├───.viminfo\n├───.wget-hsts\n├───.zcompdump\n├───.zcompdump-archlinux-5.9\n├───...\n└───..."
+        }
+      ]
+    },
+    {
+      "role": "model",
+      "parts": [
+        {
+          "text": "Got it. Thanks for the context!"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "привет"
+        }
+      ]
+    },
+    [
+      "привет"
+    ]
+  ]
+}
+2026-06-02T15:42:32.567Z [DEBUG] [CLIENT] Discarding settled but unconsumed memory prefetch.

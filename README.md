@@ -24,9 +24,15 @@ skills/
 ├── init-ui-project/   — инициализация нового проекта
 ├── create-layout/     — создание reusable layout-компонентов
 ├── list-layouts/      — просмотр доступных layout'ов
-└── generate-page/     — генерация JSX-страниц
 ├── generate-page/     — генерация JSX-страниц
 └── prisma-ui/         — документация и prompt-инструкции для генерации UI на Prisma UI
+    ├── SKILL.md              — главная инструкция для агента
+    ├── README.md             — описание skill для людей
+    ├── prompts.md            — prompt-инструкции для Qwen
+    ├── qwen-extension.json   — метаданные расширения
+    └── docs/
+        ├── components.md     — каталог компонентов, props и правила композиции
+        └── examples.md       — запросы и ответы с примерами интеграции
 ```
 
 ## Доступные навыки (skills)
@@ -58,6 +64,7 @@ skills/
 - Эталонные запросы и ответы для типовых UI-задач
 - Prompt-инструкции для Qwen
 - Правила интеграции с другими skills для сохранения кода в файлы
+- Полный цикл работы: генерация → подтверждение → сохранение
 
 ## Технологии
 
@@ -84,3 +91,13 @@ skills/
 3. Посмотреть layout'ы: `list-layouts`
 4. Сгенерировать страницу: `generate-page`
 5. Сгенерировать интерфейс на Prisma UI: `prisma-ui`
+
+## Документация
+
+Для подробной документации по каждому skill обратитесь к их SKILL.md файлам:
+
+- `skills/init-ui-project/SKILL.md` — инициализация проекта
+- `skills/create-layout/SKILL.md` — создание layout'ов
+- `skills/list-layouts/SKILL.md` — просмотр layout'ов
+- `skills/generate-page/SKILL.md` — генерация страниц
+- `skills/prisma-ui/SKILL.md` — генерация UI на Prisma UI

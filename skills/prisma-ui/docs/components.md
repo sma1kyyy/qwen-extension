@@ -6,6 +6,32 @@
 
 > Важно: если фактическая внутренняя документация Prisma UI отличается от этого контракта, приоритет имеет внутренняя документация команды. Этот файл служит базовой спецификацией для стабильной генерации UI.
 
+## Быстрый справочник
+
+### Layout (5)
+`Page`, `Section`, `Stack`, `Inline`, `Grid`
+
+### Typography (3)
+`Heading`, `Text`, `Link`
+
+### Actions (2)
+`Button`, `IconButton`
+
+### Forms (7)
+`Form`, `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`
+
+### Containers (4)
+`Card`, `Badge`, `Avatar`, `Alert`
+
+### Data (3)
+`Table`, `Pagination`, `EmptyState`
+
+### Overlay (6)
+`Overlay`, `Modal`, `Drawer`, `Tooltip`, `Toast`, `Spinner`
+
+### Navigation (2)
+`Tabs`, `Breadcrumbs`
+
 ## Общие правила
 
 ### Импорт
@@ -602,13 +628,28 @@ Props:
 
 ### Breadcrumbs
 
-Назначение: хлебные крошки.
+Назначение: навигация по иерархии страниц.
 
 Props:
 
-| Prop    | Type                                 | Default | Описание |
-| ------- | ------------------------------------ | ------- | -------- |
-| `items` | `{ label: string; href?: string }[]` | `[]`    | Путь.    |
+| Prop        | Type                                                                                      | Default | Описание                                     |
+| ----------- | ----------------------------------------------------------------------------------------- | ------- | -------------------------------------------- |
+| `items`     | `{ label: string; href?: string; onClick?: () => void }[]`                               | —       | Массив элементов хлебных крошек.             |
+| `separator` | `string`                                                                                  | `'/'`   | Сепаратор между элементами.                  |
+| `maxVisible`| `number`                                                                                  | —       | Максимальное количество видимых элементов.  |
+| `onSelect`  | `(item: { label: string; href?: string }) => void`                                       | —       | Обработчик клика по элементу.                |
+
+Пример:
+
+```jsx
+<Breadcrumbs
+  items={[
+    { label: 'Главная', href: '/' },
+    { label: 'Каталог', href: '/catalog' },
+    { label: 'Электроника' }
+  ]}
+/>
+```
 
 ## Типовые композиции
 

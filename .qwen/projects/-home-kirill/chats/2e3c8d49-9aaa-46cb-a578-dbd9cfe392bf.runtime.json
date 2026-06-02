@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "pid": 643549,
+  "session_id": "2e3c8d49-9aaa-46cb-a578-dbd9cfe392bf",
+  "work_dir": "/home/kirill",
+  "hostname": "MiWiFi-RD04-srv",
+  "started_at": 1780437102.634,
+  "qwen_version": "0.17.0"
+}

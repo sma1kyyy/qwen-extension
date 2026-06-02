@@ -362,3 +362,197 @@ const ProfileSummary = () => {
 
 export default ProfileSummary
 ```
+
+## Пример 9: Интеграция с generate-page (запись в файл)
+
+### Запрос
+
+```text
+Создай страницу профиля пользователя и сохрани в pages/profile.jsx
+```
+
+### Ответ
+
+```jsx
+import { Avatar, Badge, Button, Card, Heading, Inline, Page, Section, Stack, Text } from '@prisma-ui/react'
+
+const ProfilePage = () => {
+  return (
+    <Page title="Профиль" description="Основная информация об аккаунте" maxWidth="lg">
+      <Stack gap="lg">
+        <Section title="Персональные данные" description="Личная информация пользователя">
+          <Card padding="lg">
+            <Stack gap="lg">
+              <Inline gap="lg" align="start">
+                <Avatar src="/avatar.jpg" name="Иван Иванов" size="xl" />
+                <Stack gap="md">
+                  <Heading level={3}>Иван Иванов</Heading>
+                  <Inline gap="sm" align="center">
+                    <Badge tone="success">Активен</Badge>
+                    <Text tone="muted">ivan@example.com</Text>
+                  </Inline>
+                </Stack>
+              </Inline>
+              <Inline gap="sm">
+                <Button variant="primary">Редактировать профиль</Button>
+                <Button variant="outline">Изменить аватар</Button>
+              </Inline>
+            </Stack>
+          </Card>
+        </Section>
+
+        <Section title="Настройки безопасности" description="Управление паролем и доступом">
+          <Card padding="lg">
+            <Stack gap="md">
+              <Inline justify="between" align="center">
+                <Stack gap="xs">
+                  <Text weight="medium">Двухфакторная аутентификация</Text>
+                  <Text tone="muted" size="sm">Добавьте дополнительный уровень защиты</Text>
+                </Stack>
+                <Badge tone="success">Включено</Badge>
+              </Inline>
+              <Inline justify="end">
+                <Button variant="secondary">Управление</Button>
+              </Inline>
+            </Stack>
+          </Card>
+        </Section>
+      </Stack>
+    </Page>
+  )
+}
+
+export default ProfilePage
+```
+
+**Инструкция для записи в файл:**
+1. Создай файл `pages/profile.jsx` в проекте
+2. Скопируй код выше в файл
+3. Убедись, что папка `pages/` существует
+
+## Пример 10: Интеграция с create-layout (создание reusable layout)
+
+### Запрос
+
+```text
+Создай layout для страницы администратора и сохрани в layouts/admin-layout.jsx
+```
+
+### Ответ
+
+```jsx
+import { useState } from 'react'
+import { Button, Card, Grid, Heading, Inline, Page, Section, Stack, Table, Text } from '@prisma-ui/react'
+
+const AdminLayout = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  return (
+    <Page maxWidth="full" padding="none">
+      {/* Header */}
+      <Card padding="md" shadow="sm">
+        <Inline justify="between" align="center">
+          <Heading level={2}>Админ панель</Heading>
+          <Inline gap="sm">
+            <Button variant="ghost">Настройки</Button>
+            <Button variant="secondary" onClick={() => setSidebarOpen(!sidebarOpen)}>
+              Меню
+            </Button>
+          </Inline>
+        </Inline>
+      </Card>
+
+      {/* Content */}
+      <Stack gap="lg" padding="lg">
+        {children}
+      </Stack>
+    </Page>
+  )
+}
+
+export default AdminLayout
+```
+
+**Инструкция для записи в файл:**
+1. Создай файл `layouts/admin-layout.jsx` в проекте
+2. Скопируй код выше в файл
+3. Используй этот layout при генерации страниц через `generate-page`
+
+## Пример 11: Полный цикл работы - от запроса до файла
+
+### Сценарий: Пользователь просит создать страницу профиля
+
+**Запрос пользователя:**
+```text
+Создай страницу профиля пользователя на Prisma UI и сохрани в pages/profile.jsx
+```
+
+**Действия агента:**
+
+1. **Генерация кода:**
+```jsx
+import { Avatar, Badge, Button, Card, Heading, Inline, Page, Section, Stack, Text } from '@prisma-ui/react'
+
+const ProfilePage = () => {
+  return (
+    <Page title="Профиль" description="Основная информация об аккаунте" maxWidth="lg">
+      <Stack gap="lg">
+        <Section title="Перс��нальные данные" description="Личная информация пользователя">
+          <Card padding="lg">
+            <Stack gap="lg">
+              <Inline gap="lg" align="start">
+                <Avatar src="/avatar.jpg" name="Иван Иванов" size="xl" />
+                <Stack gap="md">
+                  <Heading level={3}>Иван Иванов</Heading>
+                  <Inline gap="sm" align="center">
+                    <Badge tone="success">Активен</Badge>
+                    <Text tone="muted">ivan@example.com</Text>
+                  </Inline>
+                </Stack>
+              </Inline>
+              <Inline gap="sm">
+                <Button variant="primary">Редактировать профиль</Button>
+                <Button variant="outline">Изменить аватар</Button>
+              </Inline>
+            </Stack>
+          </Card>
+        </Section>
+
+        <Section title="Настройки безопасности" description="Управление паролем и доступом">
+          <Card padding="lg">
+            <Stack gap="md">
+              <Inline justify="between" align="center">
+                <Stack gap="xs">
+                  <Text weight="medium">Двухфакторная аутентификация</Text>
+                  <Text tone="muted" size="sm">Добавьте дополнительный уровень защиты</Text>
+                </Stack>
+                <Badge tone="success">Включено</Badge>
+              </Inline>
+              <Inline justify="end">
+                <Button variant="secondary">Управление</Button>
+              </Inline>
+            </Stack>
+          </Card>
+        </Section>
+      </Stack>
+    </Page>
+  )
+}
+
+export default ProfilePage
+```
+
+2. **Подтверждение сохранения:**
+```
+Я сгенерировал код страницы профиля. Сохранить его в pages/profile.jsx?
+```
+
+3. **После подтверждения:**
+- Создать файл `pages/profile.jsx`
+- Вставить сгенерированный код
+- Сообщить: "Файл pages/profile.jsx успешно создан"
+
+**Ключевые моменты:**
+- Всегда генерируй полный код перед сохранением
+- Запрашивай подтверждение перед записью в файл
+- Указывай точный путь к файлу при подтверждении
