@@ -1,6 +1,6 @@
 <project>
   <name>UI Generator Project</name>
   <description>UI проект для генерации интерфейсов</description>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <createdAt>2026-06-02</createdAt>
 </project>
