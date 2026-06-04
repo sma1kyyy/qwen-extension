@@ -41,6 +41,7 @@ description: Инициализирует текущую папку как пр�
 Создайте файл `ui-project.xml` со следующим содержимым:
 ```xml
 <project>
+  <id>{уникальный идентификатор проекта}</id>
   <name>{Название проекта}</name>
   <description>{Описание проекта}</description>
   <version>1.0.0</version>
