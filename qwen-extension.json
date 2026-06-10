@@ -1,5 +1,21 @@
 {
   "name": "ui-code-generator",
   "version": "1.0.3",
-  "skills": "skills"
+  "skills": "skills",
+  "mcpServers": {
+    "ui-generator-mcp": {
+      "httpUrl": "http://localhost:3000/sse",
+      "timeout": 30000,
+      "oauth": {
+        "enabled": true,
+        "clientId": "mcp-server",
+        "authorizationUrl": "https://data.agentport.ru/auth/realms/dataspace/protocol/openid-connect/auth",
+        "tokenUrl": "https://data.agentport.ru/auth/realms/dataspace/protocol/openid-connect/token",
+        "redirectUri": "http://localhost:7777/oauth/callback",
+        "scopes": [
+          "profile"
+        ]
+      }
+    }
+  }
 }
