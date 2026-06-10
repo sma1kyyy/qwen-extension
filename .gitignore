@@ -1,0 +1,8 @@
+.qwen/
+package-lock.json
+package.json
+.env
+.venv
+test/
+scripts/
+node_modules/

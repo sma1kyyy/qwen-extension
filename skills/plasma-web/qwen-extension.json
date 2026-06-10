@@ -1,0 +1,19 @@
+{
+    "name": "plasma-web",
+    "version": "1.0.3",
+    "description": "Генерирует React UI на базе @salutejs/plasma-web с темизацией и примерами",
+    "author": "Qwen Agent",
+    "skills": [
+        {
+            "name": "plasma-web",
+            "description": "Генерирует React/JSX интерфейс на Plasma Web по текстовому запросу",
+            "files": [
+                "prompts.md",
+                "SKILL.md",
+                "README.md",
+                "docs/components.md",
+                "docs/examples.md"
+            ]
+        }
+    ]
+}

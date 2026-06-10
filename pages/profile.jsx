@@ -1,69 +1,98 @@
-import { Avatar, Badge, Button, Card, Heading, Inline, Page, Section, Stack, Text } from '@prisma-ui/react'
+import React from 'react'
+import styled, { createGlobalStyle } from 'styled-components'
+import { plasma_web__dark } from '@salutejs/plasma-themes'
+import { Avatar, Badge, Button, Card, HeadlineS, TextL, TextM, TextS } from '@salutejs/plasma-web'
 
-const ProfilePage = () => {
+const Theme = createGlobalStyle(plasma_web__dark)
+
+const Page = styled.div`
+  min-height: 100vh;
+  padding: 32px;
+  background: var(--surface-solid-default, #080808);
+  color: var(--text-primary, #ffffff);
+`
+
+const ProfileCard = styled(Card)`
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+`
+
+const UserInfo = styled.div`
+  flex: 1;
+`
+
+const StatusInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+`
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+`
+
+const SecurityItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+`
+
+const TextBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export default function App() {
   return (
-    <Page title="Профиль" description="Основная информация об аккаунте" maxWidth="lg">
-      <Stack gap="lg">
-        <Section title="Персональные данные" description="Личная информация пользователя">
-          <Card padding="lg">
-            <Stack gap="lg">
-              <Inline gap="lg" align="start">
-                <Avatar src="/avatar.jpg" name="Иван Иванов" size="xl" />
-                <Stack gap="md">
-                  <Heading level={3}>Иван Иванов</Heading>
-                  <Inline gap="sm" align="center">
-                    <Badge tone="success">Активен</Badge>
-                    <Text tone="muted">ivan@example.com</Text>
-                  </Inline>
-                </Stack>
-              </Inline>
-              <Inline gap="sm">
-                <Button variant="primary">Редактировать профиль</Button>
-                <Button variant="outline">Изменить аватар</Button>
-              </Inline>
-            </Stack>
-          </Card>
-        </Section>
+    <>
+      <Theme />
+      <Page>
+        <HeadlineS>Профиль пользователя</HeadlineS>
 
-        <Section title="Настройки безопасности" description="Управление паролем и доступом">
-          <Card padding="lg">
-            <Stack gap="md">
-              <Inline justify="between" align="center">
-                <Stack gap="xs">
-                  <Text weight="medium">Двухфакторная аутентификация</Text>
-                  <Text tone="muted" size="sm">Добавьте дополнительный уровень защиты</Text>
-                </Stack>
-                <Badge tone="success">Включено</Badge>
-              </Inline>
-              <Inline justify="end">
-                <Button variant="secondary">Управление</Button>
-              </Inline>
-            </Stack>
-          </Card>
-        </Section>
+        <ProfileCard padding="l" radius="l" shadow={true}>
+          <Avatar url="https://via.placeholder.com/150" name="Иван Иванов" size="l" />
 
-        <Section title="Статистика аккаунта" description="Основные показатели использования">
-          <Card padding="lg">
-            <Stack gap="md">
-              <Inline justify="between" align="center">
-                <Stack gap="xs">
-                  <Text weight="medium">Дата регистрации</Text>
-                  <Text tone="muted" size="sm">2024-01-15</Text>
-                </Stack>
-                <Badge tone="info">Pro</Badge>
-              </Inline>
-              <Inline justify="between" align="center">
-                <Stack gap="xs">
-                  <Text weight="medium">Последний вход</Text>
-                  <Text tone="muted" size="sm">Сегодня, 10:30</Text>
-                </Stack>
-              </Inline>
-            </Stack>
-          </Card>
-        </Section>
-      </Stack>
-    </Page>
+          <UserInfo>
+            <HeadlineS style={{ marginBottom: '8px' }}>Иван Иванов</HeadlineS>
+            <TextM tone="neutral">ivan@example.com</TextM>
+
+            <StatusInfo>
+              <Badge tone="success">Активен</Badge>
+              <TextS tone="neutral">ID: 12345</TextS>
+            </StatusInfo>
+
+            <ButtonGroup>
+              <Button view="primary" size="m" text="Редактировать профиль" />
+              <Button view="outline" size="m" text="Изменить аватар" />
+            </ButtonGroup>
+          </UserInfo>
+        </ProfileCard>
+
+        <Card padding="l" radius="l" shadow={true}>
+          <HeadlineS style={{ marginBottom: '16px' }}>Настройки безопасности</HeadlineS>
+
+          <SecurityItem>
+            <TextBlock>
+              <TextM>Двухфакторная аутентификация</TextM>
+              <TextS tone="neutral">Добавьте дополнительный уровень защиты</TextS>
+            </TextBlock>
+            <Badge tone="success">Включено</Badge>
+          </SecurityItem>
+
+          <SecurityItem>
+            <TextBlock>
+              <TextM>Сессии</TextM>
+              <TextS tone="neutral">Управление активными сессиями</TextS>
+            </TextBlock>
+            <Button view="secondary" size="m" text="Управление" />
+          </SecurityItem>
+        </Card>
+      </Page>
+    </>
   )
 }
-
-export default ProfilePage

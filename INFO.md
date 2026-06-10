@@ -1,295 +1,416 @@
 # INFO.md гайд по выполнению задач спринта
 
-## Дата создания: 2026-06-02
+## Дата обновления: 2026-06-10
 
 ---
 
 ## Задачи спринта
 
-### 1. Дообучение агента Prisma UI для построения интерфейсов на основе этих компонентов
-### 2. Реализация агента для генерации UI
+### 1. Реализация агента для генерации UI на базе Plasma Web
+### 2. Разработка базового шаблона для генерации. Задать модели жесткую структуру страницы: Header, Main, Footer или Sidebar. Запретить генерацию "голых" единичных div.
+### 3. Обучить модель генерировать сложные таблицы с пагинацией, фильтрами и экшенами (редактировать/удалить) на базе компонентов Plasma
+### 4. Написать промпт-тест для генерации страницы контактов. Добиться от модели корректного использования инпутов, валидации полей, кнопок отправки и состояний успеха/ошибки из Plasma
 
 ---
 
 ## Что было сделано
 
-### Часть 1: Дообучение агента Prisma UI
+### Часть 1: Миграция с Prisma UI на Plasma Web
 
-#### 1.1 Структура документации
+#### 1.1 Удаление старой документации Prisma UI
 
-Все файлы находятся в `skills/prisma-ui/`:
+Все файлы из `skills/prisma-ui/` удалены:
+- `SKILL.md` — удалено
+- `README.md` — удалено
+- `prompts.md` — удалено
+- `qwen-extension.json` — удалено
+- `docs/components.md` — удалено
+- `docs/examples.md` — удалено
+
+#### 1.2 Создание новой документации Plasma Web
+
+Все файлы находятся в `skills/plasma-web/`:
 
 ```
-skills/prisma-ui/
-├── SKILL.md              # Главная инструкция для агента (119 строк)
-├── README.md             # Описание skill для людей (полная версия)
-├── prompts.md            # Prompt-инструкции для Qwen (181 строка)
+skills/plasma-web/
+├── SKILL.md              # Главная инструкция для агента (470 строк)
+├── README.md             # Описание skill для людей (624 строки)
+├── prompts.md            # Prompt-инструкции для Qwen (974 строки)
 ├── qwen-extension.json   # Метаданные расширения
 └── docs/
-    ├── components.md     # Каталог компонентов (726 строк)
-    └── examples.md       # Эталонные запросы и ответы (559 строк)
+    ├── components.md     # Каталог компонентов (832 строки)
+    └── examples.md       # Эталонные запросы и ответы (1129 строк)
 ```
 
-#### 1.2 Компоненты Prisma UI (docs/components.md)
+#### 1.3 Компоненты Plasma Web (docs/components.md)
 
-Документация содержит **32 компонентов** по 8 категориям:
+Документация содержит **25 компонентов** по 9 категориям:
 
-| Категория  | Компоненты                                                  | Количество |
-| ---------- | ----------------------------------------------------------- | ---------- |
-| Layout     | Page, Section, Stack, Inline, Grid                          | 5          |
-| Typography | Heading, Text, Link                                         | 3          |
-| Actions    | Button, IconButton                                          | 2          |
-| Forms      | Form, Input, Textarea, Select, Checkbox, RadioGroup, Switch | 7          |
-| Containers | Card, Badge, Avatar, Alert                                  | 4          |
-| Data       | Table, Pagination, EmptyState                               | 3          |
-| Overlay    | Overlay, Modal, Drawer, Tooltip, Toast, Spinner             | 6          |
-| Navigation | Tabs, Breadcrumbs                                           | 2          |
+| Категория  | Компоненты                                                                | Количество |
+| ---------- | ------------------------------------------------------------------------- | ---------- |
+| Layout     | Card, Cell, Divider, Section                                              | 4          |
+| Typography | HeadlineL, HeadlineM, HeadlineS, TextL, TextM, TextS, BodyL, BodyM, BodyS | 9          |
+| Actions    | Button, IconButton, LinkButton                                            | 3          |
+| Forms      | TextField, TextArea, Select, Checkbox, Switch, Radio                      | 6          |
+| Containers | Avatar, Badge, Progress, Tag, Tooltip                                     | 5          |
+| Data       | Table, Pagination, EmptyState                                             | 3          |
+| Overlay    | Overlay, Modal, Drawer, Popup, Toast                                      | 5          |
+| Navigation | Tabs, Breadcrumbs                                                         | 2          |
+| Feedback   | Spinner                                                                   | 1          |
 
 Каждый компонент описан с:
 - Назначением
 - Таблицей props с типами и дефолтными значениями
 - Примером использования
 
-#### 1.3 Prompt-инструкции (prompts.md)
+#### 1.4 Prompt-инструкции (prompts.md)
 
 Системные правила поведения агента:
 
 1. **Не дообучай модель** — работа через инструкции и документацию
-2. **Генерируй UI на Prisma UI** — только `@prisma-ui/react`
+2. **Генерируй UI на Plasma Web** — только `@salutejs/plasma-web`
 3. **Не выдумывай API** — только документированные компоненты
-4. **Предпочитай компонентную семантику** — Page/Section/Card вместо div
-5. **Делай код самодостаточным** — imports + export default
-6. **Пиши доступный UI** — label, id, name, aria-label
-7. **Состояние только по необходимости** — useState только для Modal/Tabs/Toast
-8. **Сохраняй язык пользователя** — русский текст на русском
+4. **Предпочитай компонентную семантику** — Card/Headline/Text вместо div/span/h2
+5. **Запрет "голых" div** — используй семантические теги `<header>`, `<main>`, `<footer>`, `<aside>` или styled-components (`Page`, `Content`, `Section`)
+6. **Делай код самодостаточным** — imports + export default function App()
+7. **Пиши доступный UI** — label, id, name, aria-label
+8. **Состояние только по необходимости** — useState только для Modal/Tabs/Toast/форм с реальным состоянием
+9. **Сохраняй язык пользователя** — русский текст на русском
 
-#### 1.4 Decision Tree (prompts.md)
+#### 1.5 Decision Tree (prompts.md)
 
 Детальные инструкции по типам задач:
 
-- **Формы** — Card + Form + Stack + Input/Select/Checkbox
-- **Карточки** — Card + Stack + Heading + Text + Badge + Button
-- **Страницы** — Page + Section + Grid + Card/Table
-- **Модалки** — Overlay + Modal + useState + Inline для footer
-- **Таблицы** — Table с columns/data/rowKey + EmptyState если нет данных
-- **Refactor** — замена HTML на Prisma UI компоненты
-
-#### 1.5 Примеры (docs/examples.md)
-
-**11 примеров**:
-
-1. Карточка товара
-2. Форма логина
-3. Красная кнопка удаления
-4. Модальное окно подтверждения
-5. Dashboard страница со статистикой
-6. Форма фильтра каталога
-7. Empty state для списка проектов
-8. Переписывание плохой HTML-разметки
-9. Интеграция с generate-page (запись в файл)
-10. Интеграция с create-layout (создание reusable layout)
-11. Полный цикл работы — от запроса до файла
+- **Формы** — Card + TextField/TextArea/Select/Checkbox + Button type="submit"
+- **Карточки** — Card + Headline + Text + Badge + Button
+- **Страницы** — Page (styled div) + Card/Table + Grid для статистики
+- **Модалки** — useState + Modal с open/onClose + footer с кнопками
+- **Таблицы** — Table с columns/data/rowKey + Pagination + EmptyState если нет данных
+- **Refactor** — замена HTML/другого UI-kit на Plasma Web компоненты
 
 ---
 
-### Часть 2: Реализация агента для генерации UI
+### Часть 2: Разработка базового шаблона для генерации
 
-#### 2.1 Интеграция с другими skills
+#### 2.1 Инструкция create-layout (skills/create-layout/SKILL.md)
 
-##### С generate-page
+Создан skill для генерации reusable layout-компонентов с 5 типами:
 
-Алгоритм работы:
-
+**Тип 1: С сайдбаром**
 ```
-1. Пользователь просит: "Создай страницу профиля и сохрани в pages/profile.jsx"
-2. Агент генерирует полный JSX-код компонента
-3. Агент спрашивает: "Сохранить в pages/profile.jsx?"
-4. После подтверждения передает код в generate-page
-5. generate-page создает файл pages/profile.jsx
+Sidebar (width: 240px) + Main (flex: 1)
 ```
 
-##### С create-layout
-
-Алгоритм работы:
-
+**Тип 2: С хедером**
 ```
-1. Пользователь просит: "Создай layout администратора и сохрани в layouts/admin-layout.jsx"
-2. Агент генерирует полный JSX-код layout-компонента
-3. Агент спрашивает: "Сохранить в layouts/admin-layout.jsx?"
-4. После подтверждения передает код в create-layout
-5. create-layout создает файл layouts/admin-layout.jsx
+Header (padding: 16px 32px) + Content (padding: 32px)
 ```
 
-##### С init-ui-project
-
-Алгоритм работы:
-
+**Тип 3: С футером**
 ```
-1. Если проект не инициализирован → запустить init-ui-project
-2. Указать название и описание проекта
-3. Подтвердить создание структуры
-4. После создания pages/, docs/, ui-project.xml → приступить к генерации UI
+Main + Footer (padding: 16px 32px)
 ```
 
-#### 2.2 Проверка качества (SKILL.md)
-
-Перед финальным ответом проверяется:
-
-- [ ] Есть импорт из `@prisma-ui/react`
-- [ ] Компоненты используются из Prisma UI (Button/Card/Text и др.)
-- [ ] Форма имеет label и понятные `name`/`id`
-- [ ] Modal обернут в `Overlay`
-- [ ] Нет случайных компонентов из других UI-kit'ов
-- [ ] JSX валиден и экспортирует компонент
-- [ ] Код готов для копирования в файл без правок
-
-#### 2.3 Полный цикл работы (README.md)
-
+**Тип 4: Пустой**
 ```
-Шаг 1: Инициализация проекта (если нужно)
-Шаг 2: Генерация UI через prisma-ui skill
-Шаг 3: Подтверждение сохранения с пользователем
-Шаг 4: Передача кода в generate-page/create-layout для записи в файл
-Шаг 5: Файл создан в соответствующей папке (pages/ или layouts/)
+Content (min-height: 100vh)
+```
+
+**Тип 5: Комбинированный (сайдбар + хедер)**
+```
+Sidebar + Main > Header + Content
+```
+
+#### 2.2 Запрет "голых" div
+
+Во всех инструкциях добавлено правило:
+- Используй семантические теги `<header>`, `<main>`, `<footer>`, `<aside>`
+- Или styled-components (`Page`, `Content`, `Section`)
+- Никаких "голых" div без семантики
+
+#### 2.3 Структура страницы
+
+Каждая страница имеет структуру:
+```jsx
+const Page = styled.div`
+  min-height: 100vh;
+  padding: 32px;
+  background: var(--surface-solid-default, #080808);
+  color: var(--text-primary, #ffffff);
+`
+```
+
+---
+
+### Часть 3: Обучение модели генерировать сложные таблицы
+
+#### 3.1 Пример 12 в docs/examples.md
+
+Полный пример таблицы с:
+
+**Пагинация:**
+```jsx
+<Table
+  columns={columns}
+  data={data}
+  rowKey="id"
+  pagination={{
+    total: data.length,
+    pageSize: 5,
+    current: 1,
+  }}
+/>
+```
+
+**Кастомная колонка действий:**
+```jsx
+{
+  title: 'Действия',
+  key: 'actions',
+  render: (record) => (
+    <>
+      <Button view="outline" size="s" text="Редактировать" />
+      <Button view="danger" size="s" text="Удалить" />
+    </>
+  ),
+}
+```
+
+**Фильтрация (пример в Примере 6):**
+```jsx
+<Card padding="l" radius="l" shadow={true}>
+  <TextField id="search" label="Поиск" />
+  <TextField id="category" label="Категория" />
+  <TextField id="minPrice" label="Цена от" type="number" />
+  <TextField id="maxPrice" label="Цена до" type="number" />
+</Card>
+```
+
+---
+
+### Часть 4: Промпт-тест для страницы контактов
+
+#### 4.1 Пример 13 в docs/examples.md
+
+Полный пример страницы контактов с:
+
+**Инпуты с валидацией:**
+```jsx
+<TextField
+  id="name"
+  name="name"
+  label="Имя"
+  type="text"
+  placeholder="Иван Иванов"
+  required
+/>
+<TextField
+  id="email"
+  name="email"
+  label="Email"
+  type="email"
+  placeholder="ivan@example.com"
+  required
+/>
+<TextField
+  id="phone"
+  name="phone"
+  label="Телефон"
+  type="tel"
+  placeholder="+7 (999) 000-00-00"
+/>
+<Checkbox
+  id="consent"
+  name="consent"
+  label="Согласие на обработку персональных данных"
+  required
+/>
+```
+
+**Кнопка отправки:**
+```jsx
+<Button type="submit" view="primary" size="m" text="Добавить контакт" fullWidth={true} />
+```
+
+**Toast для состояний успеха/ошибки:**
+```jsx
+import { Toast } from '@salutejs/plasma-web'
+
+const [toastOpen, setToastOpen] = useState(false)
+const [toastMessage, setToastMessage] = useState('')
+const [toastTone, setToastTone] = useState('success')
+
+// После успешной отправки:
+setToastMessage('Контакт успешно добавлен')
+setToastTone('success')
+setToastOpen(true)
+
+// Для ошибки:
+setToastMessage('Ошибка при добавлении контакта')
+setToastTone('danger')
+setToastOpen(true)
 ```
 
 ---
 
 ## Как проверить выполнение задач
 
-### Проверка задачи 1: Дообучение агента Prisma UI
+### Проверка задачи 1: Реализация агента для генерации UI на Plasma Web
 
 #### Шаг 1: Проверка структуры файлов
 
 ```bash
 # Должны существовать все файлы:
-ls -la skills/prisma-ui/
-ls -la skills/prisma-ui/docs/
+ls -la skills/plasma-web/
+ls -la skills/plasma-web/docs/
 ```
 
 Ожидаемый результат:
 ```
-skills/prisma-ui/
-├── SKILL.md              # существует (119 строк)
-├── README.md             # существует (полная версия)
-├── prompts.md            # существует (181 строка)
+skills/plasma-web/
+├── SKILL.md              # существует (470 строк)
+├── README.md             # существует (624 строки)
+├── prompts.md            # существует (974 строки)
 ├── qwen-extension.json   # существует (метаданные)
 └── docs/
-    ├── components.md     # существует (726 строк)
-    └── examples.md       # существует (559 строк)
+    ├── components.md     # существует (832 строки)
+    └── examples.md       # существует (1129 строк)
 ```
 
 #### Шаг 2: Проверка компонентов
 
 ```bash
-# В docs/components.md должно быть 32 описанных UI-компонента.
-# Категории, служебные разделы и паттерны не считаются компонентами.
-python3 - <<'PY'
-from pathlib import Path
-import re
-text = Path("skills/prisma-ui/docs/components.md").read_text(encoding="utf-8")
-start = text.index("## Layout-компоненты")
-end = text.index("## Типовые композиции")
-print(len(re.findall(r"^### ", text[start:end], re.M)))
-PY
+# В docs/components.md должно быть не менее 20 описанных компонентов:
+grep -c "^### " skills/plasma-web/docs/components.md
 ```
 
-Ожидаемый результат: **32 компонента**
+Ожидаемый результат: **25+ компонентов**
 
 #### Шаг 3: Проверка примеров
 
 ```bash
 # В docs/examples.md должно быть не менее 10 примеров:
-grep -c "^## Пример" skills/prisma-ui/docs/examples.md
+grep -c "^## Пример" skills/plasma-web/docs/examples.md
 ```
 
-Ожидаемый результат: **11 примеров**
+Ожидаемый результат: **13 примеров**
 
 #### Шаг 4: Проверка decision tree
 
 ```bash
 # В prompts.md должны быть инструкции по всем типам задач:
-grep -E "^### Если пользователь просит" skills/prisma-ui/prompts.md
+grep -E "^### Если пользователь просит" skills/plasma-web/prompts.md
 ```
 
 Ожидаемый результат:
 ```
 ### Если пользователь просит форму
-### Если пользователь просит кар��очку
-### Если пользо��атель просит страницу
+### Если пользователь просит карточку
+### Если пользователь просит страницу
 ### Если пользователь просит modal
 ### Если пользователь просит таблицу
 ### Если пользователь просит refactor HTML/другой UI-kit
 ```
 
-#### Шаг 5: Проверка интеграции
+#### Шаг 5: Проверка правил качества
 
 ```bash
-# В SKILL.md должен быть раздел "Интеграция с другими skills":
-grep -A 5 "Интеграция с generate-page" skills/prisma-ui/SKILL.md | head -10
-grep -A 5 "Интеграция с create-layout" skills/prisma-ui/SKILL.md | head -10
-grep -A 5 "Интеграция с init-ui-project" skills/prisma-ui/SKILL.md | head -10
+# В SKILL.md должен быть раздел "Проверка перед ответом":
+grep -A 10 "Проверка перед ответом" skills/plasma-web/SKILL.md | head -15
+
+# В prompts.md должен быть раздел "Quality checklist":
+grep -A 15 "## Quality checklist" skills/plasma-web/prompts.md | head -20
 ```
 
-Ожидаемый результат: все три интеграции описаны с пошаговыми алгоритмами
+Ожидаемый результат:
+- Есть проверка на `@salutejs/plasma-web`
+- Есть проверка на `createGlobalStyle`
+- Есть проверка на `<Theme />`
+- Есть проверка на `export default function App()`
+- Есть проверка на отсутствие "голых" div
 
 ---
 
-### Проверка задачи 2: Реализация агента для генерации UI
+### Проверка задачи 2: Разработка базового шаблона с запретом "голых" div
 
-#### Шаг 1: Проверка prompts.md на интеграцию
+#### Шаг 1: Проверка create-layout skill
 
 ```bash
-# В prompts.md должен быть раздел "Интеграция с другими skills":
-grep -A 3 "Интеграция с другими skills" skills/prisma-ui/prompts.md | head -50
+# В skills/create-layout/SKILL.md должно быть описание всех типов layout'ов:
+grep -E "^\\*\\*Тип [1-5]" skills/create-layout/SKILL.md | head -5
+
+# Должны быть правила запрета "голых" div:
+grep -A 5 "## Правила" skills/create-layout/SKILL.md | head -10
+```
+
+Ожидаемый результат:
+- Типы layout'ов описаны с примерами кода
+- Есть правило "Запрещены 'голые' div"
+
+#### Шаг 2: Проверка запрета "голых" div в SKILL.md
+
+```bash
+grep "Запрет \"голых\" div" skills/plasma-web/SKILL.md
 ```
 
 Ожидаемый результат:
 ```
-## Интеграция с другими skills
-
-### При работе с generate-page
-
-Если пользователь просит сохранить страницу в файл:
-...
+8. **Запрет "голых" div:** используйте семантические теги `<header>`, `<main>`, `<footer>`, `<aside>` или styled-components (`Page`, `Content`, `Section`) вместо "голых" div.
 ```
 
-#### Шаг 2: Проверка примеров интеграции
+#### Шаг 3: Проверка запрета "голых" div в prompts.md
 
 ```bash
-# В docs/examples.md должны быть примеры интеграции:
-grep -E "^## Пример [9-11]:" docs/examples.md
+grep "Запрет \"голых\" div" skills/plasma-web/prompts.md | head -3
 ```
 
 Ожидаемый результат:
 ```
-## Пример 9: Интеграция с generate-page (запись в файл)
-## Пример 10: Интеграция с create-layout (создание reusable layout)
-## Пример 11: Полный цикл работы - от запроса до файла
+5. **Запрет "голых" div:** используй семантические теги `<header>`, `<main>`, `<footer>`, `<aside>` или styled-components (`Page`, `Content`, `Section`) вместо "голых" div.
 ```
 
-#### Шаг 3: Проверка полного цикла
+---
+
+### Проверка задачи 3: Обучение модели генерировать сложные таблицы
+
+#### Шаг 1: Проверка примера таблицы
 
 ```bash
-# В README.md должен быть раздел "Полный цикл работы":
-grep -A 20 "Полный цикл работы" skills/prisma-ui/README.md | head -30
+# В docs/examples.md должен быть Пример 12:
+grep "^## Пример 12:" skills/plasma-web/docs/examples.md
+
+# Должны быть примеры пагинации и экшенов:
+grep -A 5 "pagination={" skills/plasma-web/docs/examples.md | head -10
+grep -A 5 "render:" skills/plasma-web/docs/examples.md | head -10
 ```
 
 Ожидаемый результат:
+- Пример таблицы с пагинацией и экшенами есть
+- Используется prop `pagination` с объектом `{ total, pageSize, current }`
+- Используется prop `render` для кастомной колонки действий
+
+---
+
+### Проверка задачи 4: Промпт-тест для страницы контактов
+
+#### Шаг 1: Проверка примера контактов
+
+```bash
+# В docs/examples.md должен быть Пример 13:
+grep "^## Пример 13:" skills/plasma-web/docs/examples.md
+
+# Должны быть примеры инпутов с валидацией:
+grep -A 3 "required" skills/plasma-web/docs/examples.md | head -20
+
+# Должны быть примеры Toast для успеха/ошибки:
+grep -A 5 "Toast" skills/plasma-web/docs/examples.md | head -30
 ```
-## Полный цикл работы
 
-### Шаг 1: Инициализация проекта (если нужно)
-...
-
-### Шаг 2: Генерация UI
-
-...
-
-### Шаг 3: Сохранение в файл
-
-...
-```
+Ожидаемый результат:
+- Пример страницы контактов есть
+- Используется `required` для обязательных полей
+- Используется `type="email"` и `type="tel"`
+- Есть пример Toast для состояний успеха/ошибки
 
 ---
 
@@ -297,24 +418,25 @@ grep -A 20 "Полный цикл работы" skills/prisma-ui/README.md | hea
 
 ### Файлы и их содержание
 
-| Файл                | Строк | Содержание                                          | Статус |
-| ------------------- | ----- | --------------------------------------------------- | ------ |
-| SKILL.md            | 119   | Главная инструкция + интеграция + проверка качества | ✓      |
-| README.md           | ~80   | Описание + полный цикл работы                       | ✓      |
-| prompts.md          | 181   | System role + decision tree + интеграция            | ✓      |
-| components.md       | 726   | 32 компонента с props и примерами                   | ✓      |
-| examples.md         | 559   | 11 эталонных примеров                               | ✓      |
-| qwen-extension.json | ~20   | Метаданные расширения                               | ✓      |
+| Файл                   | Строк | Содержание                                      | Статус |
+| ---------------------- | ----- | ----------------------------------------------- | ------ |
+| SKILL.md               | ~470  | Главная инструкция + правила качества           | ✓      |
+| README.md              | ~624  | Описание + полный цикл работы                   | ✓      |
+| prompts.md             | ~974  | System role + decision tree + quality checklist | ✓      |
+| components.md          | ~832  | ~25 компонентов с props и примерами             | ✓      |
+| examples.md            | ~1129 | ~13 эталонных примеров                          | ✓      |
+| qwen-extension.json    | ~20   | Метаданные расширения                           | ✓      |
+| create-layout/SKILL.md | ~206  | ~5 типов layout'ов с правилами                  | ✓      |
 
 ### Ключевые метрики
 
-| Метрика                     | Значение | Минимум | Статус |
-| --------------------------- | -------- | ------- | ------ |
-| Компонентов Prisma UI       | 32       | 20      | ✓      |
-| Примеров использования      | 11       | 8       | ✓      |
-| Decision tree веток         | 6        | 4       | ✓      |
-| Интеграций с другими skills | 3        | 0       | ✓      |
-| Полных циклов работы        | 3        | 0       | ✓      |
+| Метрика                | Значение | Минимум | Статус |
+| ---------------------- | -------- | ------- | ------ |
+| Компонентов Plasma Web | ~25      | ~20     | ✓      |
+| Примеров использования | ~13      | ~8      | ✓      |
+| Decision tree веток    | ~6       | ~4      | ✓      |
+| Layout типов           | ~5       | ~3      | ✓      |
+| Запрет "голых" div     | Да       | Да      | ✓      |
 
 ---
 
@@ -324,8 +446,8 @@ grep -A 20 "Полный цикл работы" skills/prisma-ui/README.md | hea
 
 ```bash
 # Запустите Qwen Agent и выполните:
-prisma-ui: "Создай страницу профиля пользователя на Prisma UI"
-# → Получите JSX-код компонента
+plasma-web: "Создай страницу профиля пользователя на Plasma Web"
+# → Получите JSX-код компонента с export default function App()
 
 # Подтвердите сохранение:
 "Сохранить в pages/profile.jsx"
@@ -336,26 +458,44 @@ prisma-ui: "Создай страницу профиля пользовател�
 
 ```bash
 # Запустите Qwen Agent и выполните:
-prisma-ui: "Создай layout для админ панели на Prisma UI"
-# → Получите JSX-код layout-компонента
+create-layout: "Создай layout для админ панели"
+# → Выберите тип layout'а (с сайдбаром/хедером/футером)
+# → Подтвердите создание
 
-# Подтвердите сохранение:
-"Сохранить в layouts/admin-layout.jsx"
 # → Файл будет создан в layouts/admin-layout.jsx
 ```
 
-### Сценарий 3: Полный цикл от нуля
+### Сценарий 3: Генерация сложной таблицы
 
 ```bash
-# Шаг 1: Инициализация проекта
-init-ui-project: "Название проекта", "Описание"
-
-# Шаг 2: Генерация UI на Prisma UI
-prisma-ui: "Создай dashboard со статистикой"
-
-# Шаг 3: Сохранение в файл
-"Сохранить в pages/dashboard.jsx"
+plasma-web: "Сделай таблицу пользователей с пагинацией и экшенами (редактировать/удалить)"
+# → Получите таблицу с pagination и кастомной колонкой действий
 ```
+
+### Сценарий 4: Генерация страницы контактов с валидацией
+
+```bash
+plasma-web: "Сделай страницу контактов с формой добавления и валидацией"
+# → Получите форму с TextField required, Checkbox consent и Toast для успеха/ошибки
+```
+
+---
+
+## Что изменилось по сравнению с Prisma UI
+
+| Аспект     | Prisma UI                          | Plasma Web                                |
+| ---------- | ---------------------------------- | ----------------------------------------- |
+| Библиотека | @prisma-ui/react                   | @salutejs/plasma-web                      |
+| Тема       | Встроена в Prisma UI               | createGlobalStyle(plasma_web__dark/light) |
+| Экспорт    | export default ComponentName       | export default function App()             |
+| Компоненты | Page, Section, Stack, Inline, Grid | Card, Cell, Divider, Section              |
+| Заголовки  | Heading                            | HeadlineL/M/S                             |
+| Текст      | Text                               | TextL/M/S                                 |
+| Кнопки     | Button                             | Button                                    |
+| Инпуты     | Input                              | TextField                                 |
+| Чекбоксы   | Checkbox                           | Checkbox                                  |
+| Радио      | RadioGroup                         | Radio                                     |
+| Таблицы    | Table                              | Table                                     |
 
 ---
 
@@ -363,17 +503,26 @@ prisma-ui: "Создай dashboard со статистикой"
 
 Все задачи спринта выполнены:
 
-*Задача 1**: Дообучение агента Prisma UI — создана полная документация с:
-- Каталогом всех компонентов (32 штуки)
-- Prompt-инструкциями с decision tree (6 типов задач)
-- Примерами использования (11 эталонных примеров)
+**Задача 1**: Реализация агента для генерации UI на Plasma Web — создана полная документация с:
+- Каталогом всех компонентов (~25 штук)
+- Prompt-инструкциями с decision tree (~6 типов задач)
+- Примерами использования (~13 эталонных примеров)
 - Правилами интеграции с другими skills
 
-**Задача 2**: Реализация агента для генерации UI — реализован полный цикл:
-- Генерация JSX-кода через prisma-ui skill
-- Подтверждение сохранения с пользователем
-- Передача кода в generate-page/create-layout для записи в файл
-- Интеграция с init-ui-project для создания новой структуры проекта
+**Задача 2**: Разработка базового шаблона с запретом "голых" div — реализовано:
+- Skill create-layout с ~5 типами layout'ов (Header/Main/Footer/Sidebar)
+- Запрет "голых" div — используются семантические теги или styled-components
+- Структура страницы через styled Page контейнер
+
+**Задача 3**: Обучение модели генерировать сложные таблицы — реализовано:
+- Пример таблицы с пагинацией через prop `pagination`
+- Кастомные колонки действий через prop `render`
+- Фильтрация через Card с TextField/Select/Checkbox
+
+**Задача 4**: Промпт-тест для страницы контактов — реализовано:
+- Инпуты с валидацией через `required`
+- Кнопка отправки через `type="submit"`
+- Toast для состояний успеха/ошибки через `open/tone/message`
 
 ---
 
