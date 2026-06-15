@@ -30,7 +30,7 @@ const ProductCard = () => {
         <div style={{ marginBottom: '12px' }}>
           <Badge tone="success" size="m">В наличии</Badge>
         </div>
-        <HeadlineS style={{ marginBottom: '8px' }}>Prisma Hoodie</HeadlineS>
+        <HeadlineS style={{ marginBottom: '8px' }}>Plasma Hoodie</HeadlineS>
         <TextM tone="neutral" style={{ marginBottom: '16px' }}>Мягкое худи для команды разработки</TextM>
         <TextS weight="bold" style={{ marginBottom: '16px', fontSize: '24px' }}>4 990 ₽</TextS>
         <Button view="primary" size="m" text="Купить" />
@@ -47,7 +47,7 @@ export default function App() {
         <div style={{ marginBottom: '12px' }}>
           <Badge tone="success" size="m">В наличии</Badge>
         </div>
-        <HeadlineS style={{ marginBottom: '8px' }}>Prisma Hoodie</HeadlineS>
+        <HeadlineS style={{ marginBottom: '8px' }}>Plasma Hoodie</HeadlineS>
         <TextM tone="neutral" style={{ marginBottom: '16px' }}>Мягкое худи для команды разработки</TextM>
         <TextS weight="bold" style={{ marginBottom: '16px', fontSize: '24px' }}>4 990 ₽</TextS>
         <Button view="primary" size="m" text="Купить" />
