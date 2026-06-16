@@ -16,6 +16,18 @@
           "profile"
         ]
       }
+    },
+    "plasma-web": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@salutejs/sdds-mcp@latest",
+        "--lib",
+        "plasma-web",
+        "--version",
+        "latest"
+      ],
+      "timeout": 30000
     }
   }
 }

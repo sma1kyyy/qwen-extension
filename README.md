@@ -71,6 +71,20 @@ skills/
 - `styled-components@5.3.1`
 - JSX
 
+## Источник данных о компонентах (Plasma MCP)
+
+Расширение подключает официальный MCP-сервер Plasma `@salutejs/sdds-mcp` (см. `qwen-extension.json`, сервер `plasma-web`). Он запускается по stdio командой:
+
+```bash
+npx -y @salutejs/sdds-mcp@latest --lib plasma-web --version latest
+```
+
+и отдаёт агенту актуальную документацию: `list_components`, `get_component_props`, `get_component`, `get_component_examples`, `get_tokens`, `get_installation_guide` и др.
+
+Это источник истины по компонентам и props — каталог в `skills/plasma-web/docs/components.md` остаётся офлайн-подсказкой/конвенциями и не должен поддерживаться вручную при каждом обновлении Plasma. При расхождении приоритет за MCP.
+
+Требование: на машине, где работает агент, должны быть установлены Node.js и доступ к npm-реестру (сервер тянется через `npx`).
+
 ## Главные ограничения
 
 - Каждый файл страницы должен подключать тему через `createGlobalStyle`.
