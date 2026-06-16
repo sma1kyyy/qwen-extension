@@ -1,6 +1,6 @@
 ---
 name: create-layout
-description: Создает reusable layout-компонент для страниц на Plasma Web с Header/Main/Footer/Sidebar
+description: Создаёт переиспользуемый layout-каркас (sidebar / header / footer / комбинированный) в папке layouts/ на Plasma Web. Когда применять (или максимально похоже по смыслу): создание layout, общий каркас для страниц, шаблон с сайдбаром/хедером/футером. Не для финальной страницы — для неё generate-page.
 ---
 
 # create-layout
