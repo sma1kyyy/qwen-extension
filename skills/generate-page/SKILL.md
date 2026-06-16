@@ -7,7 +7,9 @@ description: Генерирует и сохраняет готовую стра�
 
 ## Инструкция
 
-Ваша задача: создать самодостаточный фрагмент JSX-кода, реализующий поставленную задачу от пользователя
+Ваша задача: создать самодостаточный фрагмент JSX-кода, реализующий поставленную задачу от пользователя.
+
+**Источник правил:** каркас файла, требования к теме, правила выбора компонентов и их актуальные props берите из skill `plasma-web` (`skills/plasma-web/SKILL.md`) и MCP-сервера `plasma-web`. Этот skill описывает только процедуру генерации и сохранения страницы; при расхождении приоритет за правилами `plasma-web`.
 
 ### Шаг 1: Сбор требований
 
@@ -33,12 +35,14 @@ description: Генерирует и сохраняет готовую стра�
 - Код страницы помещается ВНУТРЬ компонента layout'а как JSX
 - Результат — готовый компонент страницы, полученный с помощью объединения layout и созданной страницы
 
+**Важно:** конечный компонент страницы всегда экспортируется как `export default function App()` (правило `plasma-web`). Layout не импортируется из локального файла — его styled-обёртки инлайнятся прямо в файл страницы, чтобы страница оставалась самодостаточной для песочницы.
+
 Пример объединения:
-```tsx
+```jsx
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, TextM } from '@salutejs/plasma-web'
+import { TextM } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -47,7 +51,7 @@ const Layout = styled.div`
   min-height: 100vh;
 `
 
-const Sidebar = styled.div`
+const Sidebar = styled.aside`
   width: 240px;
   background: var(--surface-solid-default, #080808);
   padding: 16px;
@@ -58,27 +62,21 @@ const Main = styled.main`
   padding: 32px;
 `
 
-const DefaultLayout = ({ children }) => (
-  <>
-    <Theme />
-    <Layout>
-      <Sidebar>
-        <TextM>Навигация</TextM>
-      </Sidebar>
-      <Main>{children}</Main>
-    </Layout>
-  </>
-);
-
-const TodoList = () => {
+export default function App() {
   return (
-    <DefaultLayout>
-      <TextM>Контент страницы</TextM>
-    </DefaultLayout>
-  );
-};
-
-export default TodoList;
+    <>
+      <Theme />
+      <Layout>
+        <Sidebar>
+          <TextM>Навигация</TextM>
+        </Sidebar>
+        <Main>
+          <TextM>Контент страницы</TextM>
+        </Main>
+      </Layout>
+    </>
+  )
+}
 ```
 
 ### Шаг 4: Дополнительные требования
@@ -90,11 +88,11 @@ export default TodoList;
 ### Технические требования:
 
 - **Стек по умолчанию:** React + `@salutejs/plasma-web` + `@salutejs/plasma-themes` + `styled-components@5.3.1`.
-- **Архитектура:** функциональный стиль компонентов.
-- **Ограничения:** запрещено использовать хуки (`useState` и др.), а также писать реализацию обработчиков событий (`actions`). Код должен быть статичным и не зависеть от состояния.
-- **Импорт:** используйте только компоненты из `@salutejs/plasma-web`. Не смешивайте UI-kit библиотеки в одном компоненте.
-- **Самодостаточность:** весь необходимый JSX-код должен быть представлен в одном фрагменте. Не допускается использование внешних файлов или импортов, кроме Plasma Web и `react` для обязательных hooks.
-- **Формат ответа:** предоставьте только JSX-разметку без комментариев, пояснений или дополнительного текста. Код должен быть готов к копированию и вставке в файл компонента.
+- **Архитектура:** функциональный компонент с экспортом строго `export default function App() { ... }` и подключением темы через `createGlobalStyle` (см. каркас в `plasma-web`).
+- **Состояние:** для статичных страниц hooks не нужны. `useState` и обработчики событий допустимы только для реально управляемой интерактивности (`Modal`, `Tabs`, `Toast`, формы с состоянием) — правило совпадает с `plasma-web`.
+- **Импорт:** UI — только из `@salutejs/plasma-web`, тема — из `@salutejs/plasma-themes`, `styled, { createGlobalStyle }` — из `styled-components`. Не смешивайте UI-kit библиотеки.
+- **Самодостаточность:** весь JSX в одном файле; никаких импортов локальных файлов (в т.ч. layout'ов из `layouts/` — их обёртки инлайнятся).
+- **Формат файла:** сохраняемый файл содержит только код страницы, готовый к рендеру, без поясняющего текста вокруг. При этом до генерации можно задавать пользователю уточняющие вопросы (Шаги 1–4).
 
 ### Сохранение
 

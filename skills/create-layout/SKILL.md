@@ -83,13 +83,13 @@ const Content = styled.div`
   padding: 32px;
 `
 
-const {LayoutName} = ({ children }) => {
+const LayoutName = ({ children }) => {
   return (
     <>
       <Theme />
       <Layout>
         <Sidebar>
-          <TextM style={{ marginBottom: '16px' }}>Навигация</TextM>
+          <TextM>Навигация</TextM>
           {/* Навигация */}
         </Sidebar>
         <Main>
@@ -100,7 +100,7 @@ const {LayoutName} = ({ children }) => {
   )
 }
 
-export default {LayoutName}
+export default LayoutName
 ```
 
 **Тип 2 (С хедером):**
@@ -126,7 +126,7 @@ const Content = styled.div`
   padding: 32px;
 `
 
-const {LayoutName} = ({ children }) => {
+const LayoutName = ({ children }) => {
   return (
     <>
       <Theme />
@@ -140,7 +140,7 @@ const {LayoutName} = ({ children }) => {
   )
 }
 
-export default {LayoutName}
+export default LayoutName
 ```
 
 **Тип 3 (С футером):**
@@ -169,7 +169,7 @@ const Content = styled.div`
   padding: 32px;
 `
 
-const {LayoutName} = ({ children }) => {
+const LayoutName = ({ children }) => {
   return (
     <>
       <Theme />
@@ -185,7 +185,7 @@ const {LayoutName} = ({ children }) => {
   )
 }
 
-export default {LayoutName}
+export default LayoutName
 ```
 
 **Тип 4 (Пустой):**
@@ -201,7 +201,7 @@ const Content = styled.div`
   padding: 32px;
 `
 
-const {LayoutName} = ({ children }) => {
+const LayoutName = ({ children }) => {
   return (
     <>
       <Theme />
@@ -210,7 +210,7 @@ const {LayoutName} = ({ children }) => {
   )
 }
 
-export default {LayoutName}
+export default LayoutName
 ```
 
 **Тип 5 (Комбинированный - сайдбар + хедер):**
@@ -248,13 +248,13 @@ const Content = styled.div`
   padding: 32px;
 `
 
-const {LayoutName} = ({ children }) => {
+const LayoutName = ({ children }) => {
   return (
     <>
       <Theme />
       <Layout>
         <Sidebar>
-          <TextM style={{ marginBottom: '16px' }}>Навигация</TextM>
+          <TextM>Навигация</TextM>
           {/* Навигация */}
         </Sidebar>
         <Main>
@@ -268,19 +268,20 @@ const {LayoutName} = ({ children }) => {
   )
 }
 
-export default {LayoutName}
+export default LayoutName
 ```
 
 ## Правила
 
 1. **Запрещены "голые" div** — используйте `Header`, `Main`, `Footer`, `Sidebar`, `Content` как styled-components
 2. **Всегда используйте `createGlobalStyle`** для подключения темы
-3. **Экспорт:** `export default {LayoutName}`
+3. **Экспорт:** `export default LayoutName`
 4. **Layout должен быть reusable** — принимать `children` через props
 5. **Используйте семантические теги:** `<header>`, `<main>`, `<footer>`, `<aside>`
 6. **Все стили через styled-components** — никаких inline styles для layout компонентов
 
 **Примечание:**
-- Замените `{LayoutName}` на фактическое название layout'а (в PascalCase)
+- Замените `LayoutName` на фактическое название layout'а (в PascalCase), например `DashboardLayout`
 - Если выбрана навигация — добавьте базовые элементы навигации в соответствующие места
+- Эти layout-файлы — переиспользуемые шаблоны-обёртки. `generate-page` инлайнит их styled-обёртки в итоговую страницу `export default function App()` (страница не импортирует layout из `layouts/`, чтобы оставаться самодостаточной для песочницы)
 - Все каталоги и файлы создаются только после подтверждения пользователем
