@@ -1,11 +1,11 @@
 ---
 name: plasma-web
-description: Справочник и правила генерации UI на @salutejs/plasma-web (каркас файла, тема, чек-лист, источник истины по компонентам и props — MCP plasma-web). Когда применять (или максимально похоже по смыслу): любые задачи UI на Plasma Web, проверка props/компонентов, правила вёрстки и темизации, актуализация документации компонентов. Базовые правила — подключается всегда при работе с Plasma Web, не вместо generate-page.
+description: Генерация и сохранение React/JSX страниц на @salutejs/plasma-web (каркас файла, тема, выбор компонентов, чек-лист, сохранение в pages/). Источник истины по компонентам и props — MCP plasma-web. Когда применять (или максимально похоже по смыслу): создание страницы/экрана/формы/dashboard/профиля, генерация UI-фрагмента, вёрстка интерфейса, проверка props/компонентов, правила темизации. Это основной скилл генерации UI на Plasma Web.
 ---
 
 # Plasma Web UI generation skill
 
-Используйте этот skill для любых задач генерации страниц, экранов, карточек, форм, профилей, dashboard и UI-фрагментов в этом репозитории.
+Используйте этот skill для любых задач генерации страниц, экранов, карточек, форм, профилей, dashboard и UI-фрагментов в этом репозитории, а также для их сохранения в `pages/`.
 
 ## Цель
 
@@ -15,23 +15,40 @@ description: Справочник и правила генерации UI на @
 - не требует внешних пользовательских компонентов;
 - рендерится в песочнице через `export default function App() { ... }`.
 
-## Источник истины: Plasma MCP
+## Источник истины: Plasma MCP (ОБЯЗАТЕЛЬНО)
+
+**ВАЖНО: Вызов MCP tools — обязательный этап перед любой генерацией JSX.**
 
 Актуальные данные о компонентах берите из **MCP-сервера `plasma-web`** (`@salutejs/sdds-mcp`), а не из памяти и не из статичных таблиц этого скилла. Статичные `docs/components.md` и `docs/examples.md` — это офлайн-подсказка и конвенции, они могут отставать от текущей версии Plasma.
 
-Перед тем как использовать компонент или его prop, проверяйте через инструменты MCP:
+**Порядок действий перед генерацией страницы:**
 
-- `list_components` — есть ли вообще такой компонент в текущей версии plasma-web.
-- `get_component_props` — актуальные пропсы, типы, дефолты (например, есть ли у `Button` props `text`/`view`/`size`).
-- `get_component` / `get_component_examples` — полное описание и примеры использования.
-- `get_tokens` — токены для кастомных стилей.
-- `get_installation_guide` — подключение пакета и темы.
+1. **Вызов `list_components`** — убедитесь, что КАЖДЫЙ компонент, который вы собираетесь импортировать, реально существует в текущей версии `plasma-web`.
+2. **Вызов `get_component_props`** — для каждого нетривиального компонента проверьте актуальные props, их типы и дефолты (например, что у `Button` есть `text`/`view`/`size`, а у `Card` нет `padding`/`radius`/`shadow`).
+3. **При сомнениях** — используйте `get_component` / `get_component_examples` для полного описания и примеров; `get_tokens` для токенов; `get_installation_guide` для подключения.
 
-Правила приоритета:
+**Правила приоритета:**
 
 1. Если MCP и статичная дока расходятся — **прав MCP**.
-2. Не выдумывайте props. Если prop не подтверждён через `get_component_props`, не используйте его.
-3. Если MCP недоступен — работайте по статичной доке, но пометьте в ответе, что данные могли устареть.
+2. Не выдумывайте компоненты и props. Если компонент не вернулся в `list_components` или prop не подтверждён через `get_component_props` — **не используйте его**.
+3. Если MCP недоступен — работайте по `docs/components.md` (там реальные имена для версии 1.621.x) и **явно пометьте в ответе, что MCP был недоступен и данные могли устареть**.
+
+## Частые галлюцинации (НЕ существуют в plasma-web)
+
+Эти имена модель часто выдумывает — их **нет** в пакете, и песочница на них падает. Используйте правую колонку:
+
+| Выдуманное (падает в песочнице) | Реальное в `@salutejs/plasma-web` |
+| --- | --- |
+| `HeadlineL` / `HeadlineM` / `HeadlineS` | `H1`…`H6` (заголовки), `DsplL/M/S` (крупные дисплейные) |
+| `Section` (как компонент Plasma) | его нет — используйте styled-component или семантический `<section>` |
+| `Tag` | `Chip` |
+| `Radio` | `Radiobox` |
+| `Heading`, `Text` (без размера) | `H1`…`H6` / `TextL/M/S`, `BodyL/M/S` |
+| `Card padding="l" radius="l" shadow` | у `Card` нет этих props — отступы/скругление делайте через styled-обёртку |
+| `Button fullWidth` | `Button stretching="filled"` |
+| `Avatar src="..."` | `Avatar url="..."` |
+
+Если сомневаетесь — проверьте через MCP `list_components` / `get_component_props`.
 
 ## Обязательный каркас файла
 
@@ -39,7 +56,7 @@ description: Справочник и правила генерации UI на @
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, TextL, HeadlineM } from '@salutejs/plasma-web'
+import { Button, TextL, H3 } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -55,7 +72,7 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <HeadlineM>Название страницы</HeadlineM>
+        <H3>Название страницы</H3>
         <TextL>Описание</TextL>
         <Button view="primary" text="Действие" />
       </Page>
@@ -73,13 +90,32 @@ export default function App() {
 5. **Темы:** импортируйте из `@salutejs/plasma-themes`.
 6. **styled-components:** импортируйте `styled, { createGlobalStyle }` из `styled-components`.
 7. **Не смешивать UI-kit'ы:** не используйте `@coreui/react`, `@prisma-ui/react`, MUI, Ant Design.
-8. **Запрет "голых" div:** используйте семантические теги `<header>`, `<main>`, `<footer>`, `<aside>` или styled-components (`Page`, `Content`, `Section`) вместо "голых" div.
+8. **Запрет "голых" div:** используйте семантические теги `<header>`, `<main>`, `<footer>`, `<aside>` или styled-components (`Page`, `Content`, `Wrapper`) вместо "голых" div. Не выдумывайте компонент `Section` из Plasma — его там нет.
 9. **Статичные страницы:** не добавляйте hooks и обработчики, если они не нужны.
 10. **Интерактивность:** hooks допустимы только для управляемых компонентов (`Modal`, `Tabs`, `Toast`, формы с реальным состоянием).
 
-## Зависимости для песочницы
+## Процедура генерации страницы
 
-Для корректного рендеринга в песочнице необходимы:
+### Шаг 1: Сбор требований
+
+Если пользователь просит страницу, но не описал детали — задайте уточняющие вопросы (нужен ли layout-каркас sidebar/header/footer; какой контент; для таблиц/списков — состав полей).
+
+### Шаг 2: Layout (опционально)
+
+Если нужен общий каркас — возьмите styled-обёртки из подходящего файла `layouts/` (см. skill `list-layouts`) и **инлайньте** их прямо в файл страницы. Страница НЕ импортирует layout из `layouts/`, чтобы оставаться самодостаточной для песочницы.
+
+### Шаг 3: Проверка компонентов через MCP
+
+Перед написанием JSX — проверьте все компоненты и props через MCP (см. раздел «Источник истины»).
+
+### Шаг 4: Генерация и сохранение
+
+- Сгенерируйте самодостаточный JSX по каркасу выше.
+- Сохраните в `pages/<название-страницы>.jsx` (например, страница профиля → `pages/profile.jsx`).
+- Файл содержит только код страницы, готовый к рендеру, без поясняющего текста вокруг.
+- Если пользователь передал готовый JSX — сохраните его как есть, не меняя выбранный UI-kit.
+
+## Зависимости для песочницы
 
 **Обязательные пакеты:**
 ```bash
@@ -97,19 +133,16 @@ npm install --save styled-components@5.3.1
 
 Без шрифтов текст будет отображаться с system fonts, что нарушает дизайн-систему Plasma Web.
 
-## Как выбирать компоненты
+## Как выбирать компоненты (реальные имена)
 
-- Заголовки и текст: `HeadlineL`, `HeadlineM`, `HeadlineS`, `TextL`, `TextM`, `TextS`, `BodyL`, `BodyM`, `BodyS`.
-- Действия: `Button`, `IconButton`.
-- Формы: `TextField`, `TextArea`, `Select`, `Checkbox`, `Switch`, `Radio`.
-- Контейнеры и статус: `Card`, `Badge`, `Avatar`, `Divider`, `Cell`.
-- Overlay/feedback: `Overlay`, `Modal`, `Tooltip`, `Spinner`, `Toast`.
-
-## Сохранение результата
-
-- Если пользователь просит создать страницу — сохраните ее в `pages/<name>.jsx`.
-- Для страницы профиля используйте `pages/profile.jsx`.
-- Готовая страница должна быть самодостаточной и не импортировать локальные файлы.
+- Заголовки: `H1`, `H2`, `H3`, `H4`, `H5`, `H6`; крупные дисплейные — `DsplL`, `DsplM`, `DsplS`.
+- Текст: `TextL`, `TextM`, `TextS`, `TextXS`; body — `BodyL`, `BodyM`, `BodyS`.
+- Действия: `Button`, `IconButton`, `LinkButton`.
+- Формы: `TextField`, `TextArea`, `Select`, `Checkbox`, `Switch`, `Radiobox`.
+- Контейнеры и статус: `Card`, `Badge`, `Chip`, `Avatar`, `Divider`, `Cell`.
+- Данные: `Table`, `Pagination`, `EmptyState`.
+- Overlay/feedback: `Overlay`, `Modal`, `Drawer`, `Popup`, `Tooltip`, `Spinner`, `Toast`, `Notification`.
+- Навигация: `Tabs`, `Breadcrumbs`.
 
 ## Проверка перед ответом
 
@@ -117,8 +150,10 @@ npm install --save styled-components@5.3.1
 - в файле нет `@prisma-ui/react` и `@coreui/react`;
 - есть `@salutejs/plasma-web`;
 - есть `createGlobalStyle`;
-- есть `<Theme />`;
+- есть `<Theme />` первым элементом;
 - есть ровно один default export в формате `export default function App()`;
-- `Badge` получает текст через `text="..."` или `children` только если это подтверждено используемой версией; предпочтительно использовать `text`;
+- НЕ используются `HeadlineL/M/S`, `Section`, `Tag`, `Radio` (это галлюцинации — см. таблицу выше);
 - `Avatar` использует `url`, а не `src`;
+- `Button` использует `text`/`view`/`size`/`stretching`, а не `fullWidth`;
+- `Card` НЕ получает `padding`/`radius`/`shadow` (их нет; стилизуйте через styled-обёртку);
 - все использованные компоненты и их props подтверждены через MCP `plasma-web` (`list_components` / `get_component_props`), либо явно отмечено, что MCP был недоступен.

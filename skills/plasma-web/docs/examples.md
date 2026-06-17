@@ -18,7 +18,7 @@
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Badge, Button, Card, HeadlineS, TextM, TextS } from '@salutejs/plasma-web'
+import { Badge, Button, Card, H4, TextM, TextS } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -26,11 +26,11 @@ const ProductCard = () => {
   return (
     <>
       <Theme />
-      <Card padding="l" radius="l" shadow={true}>
+      <Card >
         <div style={{ marginBottom: '12px' }}>
           <Badge tone="success" size="m">В наличии</Badge>
         </div>
-        <HeadlineS style={{ marginBottom: '8px' }}>Plasma Hoodie</HeadlineS>
+        <H4 style={{ marginBottom: '8px' }}>Plasma Hoodie</H4>
         <TextM tone="neutral" style={{ marginBottom: '16px' }}>Мягкое худи для команды разработки</TextM>
         <TextS weight="bold" style={{ marginBottom: '16px', fontSize: '24px' }}>4 990 ₽</TextS>
         <Button view="primary" size="m" text="Купить" />
@@ -43,11 +43,11 @@ export default function App() {
   return (
     <>
       <Theme />
-      <Card padding="l" radius="l" shadow={true}>
+      <Card >
         <div style={{ marginBottom: '12px' }}>
           <Badge tone="success" size="m">В наличии</Badge>
         </div>
-        <HeadlineS style={{ marginBottom: '8px' }}>Plasma Hoodie</HeadlineS>
+        <H4 style={{ marginBottom: '8px' }}>Plasma Hoodie</H4>
         <TextM tone="neutral" style={{ marginBottom: '16px' }}>Мягкое худи для команды разработки</TextM>
         <TextS weight="bold" style={{ marginBottom: '16px', fontSize: '24px' }}>4 990 ₽</TextS>
         <Button view="primary" size="m" text="Купить" />
@@ -71,7 +71,7 @@ export default function App() {
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, Card, HeadlineM, TextField } from '@salutejs/plasma-web'
+import { Button, Card, H3, TextField } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -85,8 +85,8 @@ const LoginForm = () => {
   return (
     <>
       <Theme />
-      <Card padding="l" radius="l" shadow={true}>
-        <HeadlineM style={{ marginBottom: '24px' }}>Вход в аккаунт</HeadlineM>
+      <Card >
+        <H3 style={{ marginBottom: '24px' }}>Вход в аккаунт</H3>
         <FormContainer>
           <TextField
             id="email"
@@ -104,7 +104,7 @@ const LoginForm = () => {
             placeholder="Введите пароль"
             required
           />
-          <Button type="submit" view="primary" size="m" text="Войти" fullWidth={true} />
+          <Button type="submit" view="primary" size="m" text="Войти" stretching="filled" />
         </FormContainer>
       </Card>
     </>
@@ -116,8 +116,8 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <Card padding="l" radius="l" shadow={true}>
-          <HeadlineM style={{ marginBottom: '24px' }}>Вход в аккаунт</HeadlineM>
+        <Card >
+          <H3 style={{ marginBottom: '24px' }}>Вход в аккаунт</H3>
           <FormContainer>
             <TextField
               id="email"
@@ -135,7 +135,7 @@ export default function App() {
               placeholder="Введите пароль"
               required
             />
-            <Button type="submit" view="primary" size="m" text="Войти" fullWidth={true} />
+            <Button type="submit" view="primary" size="m" text="Войти" stretching="filled" />
           </FormContainer>
         </Card>
       </Page>
@@ -255,7 +255,7 @@ export default function App() {
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Badge, Button, Card, HeadlineS, TextM, TextS } from '@salutejs/plasma-web'
+import { Badge, Button, Card, H4, TextM, TextS } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -290,11 +290,11 @@ const DashboardPage = () => {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Dashboard</HeadlineS>
+        <H4>Dashboard</H4>
 
         <Grid>
           {stats.map((stat) => (
-            <Card key={stat.id} padding="l" radius="l" shadow={true}>
+            <Card key={stat.id} >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                 <TextM tone="neutral">{stat.label}</TextM>
                 <Badge tone={stat.tone} size="s">{stat.id}</Badge>
@@ -304,9 +304,9 @@ const DashboardPage = () => {
           ))}
         </Grid>
 
-        <Card padding="l" radius="l" shadow={true}>
+        <Card >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-            <HeadlineS>Последние клиенты</HeadlineS>
+            <H4>Последние клиенты</H4>
             <Button view="outline" size="m" text="Экспорт" />
           </div>
 
@@ -342,11 +342,11 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Dashboard</HeadlineS>
+        <H4>Dashboard</H4>
 
         <Grid>
           {stats.map((stat) => (
-            <Card key={stat.id} padding="l" radius="l" shadow={true}>
+            <Card key={stat.id} >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                 <TextM tone="neutral">{stat.label}</TextM>
                 <Badge tone={stat.tone} size="s">{stat.id}</Badge>
@@ -356,9 +356,9 @@ export default function App() {
           ))}
         </Grid>
 
-        <Card padding="l" radius="l" shadow={true}>
+        <Card >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-            <HeadlineS>Последние клиенты</HeadlineS>
+            <H4>Последние клиенты</H4>
             <Button view="outline" size="m" text="Экспорт" />
           </div>
 
@@ -392,7 +392,7 @@ export default function App() {
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, Card, Checkbox, HeadlineS, TextField } from '@salutejs/plasma-web'
+import { Button, Card, Checkbox, H4, TextField } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -406,8 +406,8 @@ const CatalogFilters = () => {
   return (
     <>
       <Theme />
-      <Card padding="l" radius="l" shadow={true}>
-        <HeadlineS style={{ marginBottom: '24px' }}>Фильтры</HeadlineS>
+      <Card >
+        <H4 style={{ marginBottom: '24px' }}>Фильтры</H4>
 
         <FilterForm>
           <TextField
@@ -443,7 +443,7 @@ const CatalogFilters = () => {
           <Checkbox id="inStock" name="inStock" label="Только товары в наличии" />
         </div>
 
-        <Button view="primary" size="m" text="Применить фильтры" fullWidth={true} style={{ marginTop: '16px' }} />
+        <Button view="primary" size="m" text="Применить фильтры" stretching="filled" style={{ marginTop: '16px' }} />
       </Card>
     </>
   )
@@ -454,8 +454,8 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <Card padding="l" radius="l" shadow={true}>
-          <HeadlineS style={{ marginBottom: '24px' }}>Фильтры</HeadlineS>
+        <Card >
+          <H4 style={{ marginBottom: '24px' }}>Фильтры</H4>
 
           <FilterForm>
             <TextField
@@ -491,7 +491,7 @@ export default function App() {
             <Checkbox id="inStock" name="inStock" label="Только товары в наличии" />
           </div>
 
-          <Button view="primary" size="m" text="Применить фильтры" fullWidth={true} style={{ marginTop: '16px' }} />
+          <Button view="primary" size="m" text="Применить фильтры" stretching="filled" style={{ marginTop: '16px' }} />
         </Card>
       </Page>
     </>
@@ -513,7 +513,7 @@ export default function App() {
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, EmptyState as PlasmaEmptyState, HeadlineS, TextM } from '@salutejs/plasma-web'
+import { Button, EmptyState as PlasmaEmptyState, H4, TextM } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -538,7 +538,7 @@ export default function App() {
       <Theme />
       <Page>
         <EmptyStateContainer>
-          <PlasmaEmptyState title={<HeadlineS>Проектов пока нет</HeadlineS>} description={<TextM>Создайте первый проект, чтобы начать работу с интерфейсами.</TextM>} action={<Button view="primary" size="m" text="Создать проект" />} />
+          <PlasmaEmptyState title={<H4>Проектов пока нет</H4>} description={<TextM>Создайте первый проект, чтобы начать работу с интерфейсами.</TextM>} action={<Button view="primary" size="m" text="Создать проект" />} />
         </EmptyStateContainer>
       </Page>
     </>
@@ -561,7 +561,7 @@ export default function App() {
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Badge, Button, Card, HeadlineS } from '@salutejs/plasma-web'
+import { Badge, Button, Card, H4 } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -569,9 +569,9 @@ const ProfileSummary = () => {
   return (
     <>
       <Theme />
-      <Card padding="l" radius="l" shadow={true}>
+      <Card >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <HeadlineS>Профиль</HeadlineS>
+          <H4>Профиль</H4>
           <Badge tone="success">Активен</Badge>
         </div>
         <Button view="primary" size="m" text="Редактировать" style={{ marginTop: '16px' }} />
@@ -585,9 +585,9 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <Card padding="l" radius="l" shadow={true}>
+        <Card >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <HeadlineS>Профиль</HeadlineS>
+            <H4>Профиль</H4>
             <Badge tone="success">Активен</Badge>
           </div>
           <Button view="primary" size="m" text="Редактировать" style={{ marginTop: '16px' }} />
@@ -612,7 +612,7 @@ export default function App() {
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Avatar, Badge, Button, Card, HeadlineS, TextM } from '@salutejs/plasma-web'
+import { Avatar, Badge, Button, Card, H4, TextM } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -628,14 +628,14 @@ const ProfilePage = () => {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Профиль пользователя</HeadlineS>
+        <H4>Профиль пользователя</H4>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
+        <Card  style={{ marginTop: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '24px' }}>
             <Avatar url="/avatar.jpg" name="Иван Иванов" size="l" />
 
             <div style={{ flex: 1 }}>
-              <HeadlineS>Иван Иванов</HeadlineS>
+              <H4>Иван Иванов</H4>
               <TextM tone="neutral">ivan@example.com</TextM>
 
               <div style={{ marginTop: '12px' }}>
@@ -650,8 +650,8 @@ const ProfilePage = () => {
           </div>
         </Card>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '16px' }}>
-          <HeadlineS>Настройки безопасности</HeadlineS>
+        <Card  style={{ marginTop: '16px' }}>
+          <H4>Настройки безопасности</H4>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
             <div>
@@ -661,7 +661,7 @@ const ProfilePage = () => {
             <Badge tone="success">Включено</Badge>
           </div>
 
-          <Button view="secondary" size="m" text="Управление" style={{ marginTop: '16px' }} fullWidth={true} />
+          <Button view="secondary" size="m" text="Управление" style={{ marginTop: '16px' }} stretching="filled" />
         </Card>
       </Page>
     </>
@@ -673,14 +673,14 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Профиль пользователя</HeadlineS>
+        <H4>Профиль пользователя</H4>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
+        <Card  style={{ marginTop: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '24px' }}>
             <Avatar url="/avatar.jpg" name="Иван Иванов" size="l" />
 
             <div style={{ flex: 1 }}>
-              <HeadlineS>Иван Иванов</HeadlineS>
+              <H4>Иван Иванов</H4>
               <TextM tone="neutral">ivan@example.com</TextM>
 
               <div style={{ marginTop: '12px' }}>
@@ -695,8 +695,8 @@ export default function App() {
           </div>
         </Card>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '16px' }}>
-          <HeadlineS>Настройки безопасности</HeadlineS>
+        <Card  style={{ marginTop: '16px' }}>
+          <H4>Настройки безопасности</H4>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
             <div>
@@ -706,7 +706,7 @@ export default function App() {
             <Badge tone="success">Включено</Badge>
           </div>
 
-          <Button view="secondary" size="m" text="Управление" style={{ marginTop: '16px' }} fullWidth={true} />
+          <Button view="secondary" size="m" text="Управление" style={{ marginTop: '16px' }} stretching="filled" />
         </Card>
       </Page>
     </>
@@ -733,7 +733,7 @@ export default function App() {
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, Card, HeadlineS } from '@salutejs/plasma-web'
+import { Button, Card, H4 } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -767,12 +767,12 @@ export default function AdminLayout({ children }) {
       <Theme />
       <Layout>
         <Sidebar>
-          <HeadlineS style={{ marginBottom: '24px' }}>Меню</HeadlineS>
+          <H4 style={{ marginBottom: '24px' }}>Меню</H4>
           {/* Навигация */}
         </Sidebar>
         <Main>
           <Header>
-            <HeadlineS>Админ панель</HeadlineS>
+            <H4>Админ панель</H4>
           </Header>
           <Content>{children}</Content>
         </Main>
@@ -820,7 +820,7 @@ export default function AdminLayout({ children }) {
 - Импортируй тему из `@salutejs/plasma-themes`
 - Используй `view` (primary/secondary/outline/ghost/danger) для кнопок
 - Используй `size` (s/m/l) для компонентов
-- Используй `padding`, `radius`, `shadow` для Card
+- У Card нет props `padding`, `radius`, `shadow` — стилизуй через styled-обёртку
 
 ## Пример 12: Сложная таблица с пагинацией, фильтрами и экшенами
 
@@ -836,7 +836,7 @@ export default function AdminLayout({ children }) {
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Badge, Button, Card, HeadlineS, Pagination, Table, TextM, TextS } from '@salutejs/plasma-web'
+import { Badge, Button, Card, H4, Pagination, Table, TextM, TextS } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -873,9 +873,9 @@ const UsersTable = () => {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Пользователи</HeadlineS>
+        <H4>Пользователи</H4>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
+        <Card  style={{ marginTop: '24px' }}>
           <Table
             columns={columns}
             data={data}
@@ -897,9 +897,9 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Пользователи</HeadlineS>
+        <H4>Пользователи</H4>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
+        <Card  style={{ marginTop: '24px' }}>
           <Table
             columns={columns}
             data={data}
@@ -957,7 +957,7 @@ const columns = [
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, Card, Checkbox, HeadlineS, TextField, TextM } from '@salutejs/plasma-web'
+import { Button, Card, Checkbox, H4, TextField, TextM } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -979,10 +979,10 @@ const ContactsPage = () => {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Контакты</HeadlineS>
+        <H4>Контакты</H4>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
-          <HeadlineS style={{ marginBottom: '24px' }}>Добавить контакт</HeadlineS>
+        <Card  style={{ marginTop: '24px' }}>
+          <H4 style={{ marginBottom: '24px' }}>Добавить контакт</H4>
 
           <FormContainer>
             <TextField
@@ -1014,12 +1014,12 @@ const ContactsPage = () => {
               label="Согласие на обработку персональных данных"
               required
             />
-            <Button type="submit" view="primary" size="m" text="Добавить контакт" fullWidth={true} />
+            <Button type="submit" view="primary" size="m" text="Добавить контакт" stretching="filled" />
           </FormContainer>
         </Card>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '16px' }}>
-          <HeadlineS style={{ marginBottom: '16px' }}>Список контактов</HeadlineS>
+        <Card  style={{ marginTop: '16px' }}>
+          <H4 style={{ marginBottom: '16px' }}>Список контактов</H4>
 
           <TextM tone="neutral">Контактов пока нет</TextM>
         </Card>
@@ -1033,10 +1033,10 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Контакты</HeadlineS>
+        <H4>Контакты</H4>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
-          <HeadlineS style={{ marginBottom: '24px' }}>Добавить контакт</HeadlineS>
+        <Card  style={{ marginTop: '24px' }}>
+          <H4 style={{ marginBottom: '24px' }}>Добавить контакт</H4>
 
           <FormContainer>
             <TextField
@@ -1068,12 +1068,12 @@ export default function App() {
               label="Согласие на обработку персональных данных"
               required
             />
-            <Button type="submit" view="primary" size="m" text="Добавить контакт" fullWidth={true} />
+            <Button type="submit" view="primary" size="m" text="Добавить контакт" stretching="filled" />
           </FormContainer>
         </Card>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '16px' }}>
-          <HeadlineS style={{ marginBottom: '16px' }}>Список контактов</HeadlineS>
+        <Card  style={{ marginTop: '16px' }}>
+          <H4 style={{ marginBottom: '16px' }}>Список контактов</H4>
 
           <TextM tone="neutral">Контакто�� пока нет</TextM>
         </Card>

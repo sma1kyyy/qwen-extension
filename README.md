@@ -24,12 +24,10 @@ skills/
 ├── init-ui-project/   — инициализация нового проекта
 ├── create-layout/     — создание reusable layout-компонентов
 ├── list-layouts/      — просмотр доступных layout'ов
-├── generate-page/     — генерация JSX-страниц
 └── plasma-web/        — документация и prompt-инструкции для генерации UI на Plasma Web
-    ├── SKILL.md — главная инструкция для агента
+    ├── SKILL.md — главная инструкция для агента (объединяет generate-page)
     ├── README.md — описание skill
     ├── prompts.md — prompt-инструкции для Qwen
-    ├── qwen-extension.json — метаданные расширения
     └── docs/
         ├── components.md     — каталог компонентов, props и правила композиции
         └── examples.md       — запросы и ответы с примерами интеграции
@@ -53,16 +51,14 @@ skills/
 ### `list-layouts`
 Показывает список всех доступных layout'ов в проекте
 
-### `generate-page`
-Генерирует JSX-страницы в `pages/`. По умолчанию использует Plasma Web и сохраняет самодостаточный файл с экспортом `export default function App() { ... }`.
-
 ### `plasma-web`
 Помогает агенту генерировать React UI на базе Plasma Web:
-- каталог компонентов, props и правил композиции;
+- каталог компонентов, props и правила композиции;
 - эталонные запросы и ответы для типовых UI-задач;
 - prompt-инструкции для Qwen;
 - правила подключения темы и стилей;
-- запрет на смешивание UI-kit'ов.
+- запрет на смешивание UI-kit'ов;
+- процедура генерации и сохранения страниц (объединён с generate-page).
 
 ## Технологии
 
@@ -98,8 +94,7 @@ npx -y @salutejs/sdds-mcp@latest --lib plasma-web --version latest
 1. Инициализировать проект: `init-ui-project`.
 2. Создать layout: `create-layout`.
 3. Посмотреть layout'ы: `list-layouts`.
-4. Сгенерировать страницу: `generate-page`.
-5. Для Plasma Web ориентироваться на skill `plasma-web`.
+4. Для Plasma Web ориентироваться на skill `plasma-web`.
 
 ## Документация
 
@@ -108,5 +103,4 @@ npx -y @salutejs/sdds-mcp@latest --lib plasma-web --version latest
 - `skills/init-ui-project/SKILL.md` — инициализация проекта
 - `skills/create-layout/SKILL.md` — создание layout'ов
 - `skills/list-layouts/SKILL.md` — просмотр layout'ов
-- `skills/generate-page/SKILL.md` — генерация страниц
 - `skills/plasma-web/SKILL.md` — генерация UI на Plasma Web

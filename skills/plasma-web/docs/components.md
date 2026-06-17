@@ -2,837 +2,268 @@
 
 ## Цель документа
 
-Этот файл описывает компонентную модель Salute Plasma Web в формате, удобном для LLM.
+Офлайн-справочник по компонентам `@salutejs/plasma-web` (проверено на версии **1.621.x**) в формате, удобном для LLM.
 
 > ⚠️ **Источник истины — MCP-сервер `plasma-web` (`@salutejs/sdds-mcp`), а не этот файл.**
-> Перед использованием компонента/props проверяйте их через `list_components`, `get_component_props`, `get_component`. Таблицы ниже — офлайн-подсказка и конвенции; при расхождении с MCP актуальны данные MCP. Не поддерживайте этот каталог вручную при каждом обновлении Plasma — полагайтесь на MCP.
+> Перед использованием компонента/props проверяйте их через `list_components`, `get_component_props`, `get_component`. Таблицы ниже — офлайн-подсказка; при расхождении с MCP актуальны данные MCP.
 
-## Быстрый справочник
+## Частые галлюцинации (НЕ существуют — песочница падает)
 
-### Layout (4)
-`Card`, `Cell`, `Divider`, `Section`
+| Выдуманное                              | Реальное                                              |
+| --------------------------------------- | ----------------------------------------------------- |
+| `HeadlineL` / `HeadlineM` / `HeadlineS` | `H1`…`H6`, `DsplL/M/S`                                |
+| `Section` (компонент Plasma)            | нет — styled-component или `<section>`                |
+| `Tag`                                   | `Chip`                                                |
+| `Radio`                                 | `Radiobox`                                            |
+| `Heading` / `Text` (без размера)        | `H1`…`H6` / `TextL/M/S`, `BodyL/M/S`                  |
+| `Card` с `padding`/`radius`/`shadow`    | у `Card` таких props нет — стилизуйте styled-обёрткой |
+| `Button fullWidth`                      | `Button stretching="filled"`                          |
+| `Avatar src`                            | `Avatar url`                                          |
 
-### Typography (9)
-`HeadlineL`, `HeadlineM`, `HeadlineS`, `TextL`, `TextM`, `TextS`, `BodyL`, `BodyM`, `BodyS`
+## Быстрый справочник (реальные экспорты)
 
-### Actions (3)
+### Typography
+Заголовки: `H1`, `H2`, `H3`, `H4`, `H5`, `H6`
+Дисплейные: `DsplL`, `DsplM`, `DsplS`
+Текст: `TextL`, `TextM`, `TextS`, `TextXS`
+Body: `BodyL`, `BodyM`, `BodyS`, `BodyXS`, `BodyXXS`
+
+### Layout / контейнеры
+`Card`, `Cell`, `Divider`, `Grid`, `Container` (см. MCP)
+
+### Actions
 `Button`, `IconButton`, `LinkButton`
 
-### Forms (6)
-`TextField`, `TextArea`, `Select`, `Checkbox`, `Switch`, `Radio`
+### Forms
+`TextField`, `TextArea`, `Select`, `Checkbox`, `Switch`, `Radiobox`
 
-### Containers (5)
-`Avatar`, `Badge`, `Progress`, `Tag`, `Tooltip`
+### Containers / статус
+`Avatar`, `Badge`, `Chip`, `Progress`, `Tooltip`, `Spinner`
 
-### Data (3)
+### Data
 `Table`, `Pagination`, `EmptyState`
 
-### Overlay (5)
-`Overlay`, `Modal`, `Drawer`, `Popup`, `Toast`
+### Overlay
+`Overlay`, `Modal`, `Drawer`, `Popup`, `Toast`, `Notification`
 
-### Navigation (2)
+### Navigation
 `Tabs`, `Breadcrumbs`
-
-### Feedback (1)
-`Spinner`
 
 ## Общие правила
 
 ### Импорт
+```jsx
+import { Button, Card, TextM, H3 } from '@salutejs/plasma-web'
+```
+Не импортируйте компоненты из других UI-kit библиотек.
 
-Используйте единый импорт из пакета Plasma Web:
+### Токены (типичные значения; уточняйте через MCP `get_component_props`)
+- size: `'xs' | 's' | 'm' | 'l' | 'xl'` (зависит от компонента)
+- view (Button): `'primary' | 'secondary' | 'accent' | 'clear' | 'success' | 'warning' | 'critical' | ...` — проверяйте через MCP, набор зависит от версии.
+
+---
+
+## Typography
+
+`H1`…`H6`, `DsplL/M/S`, `TextL/M/S/XS`, `BodyL/M/S/XS/XXS` — типографические компоненты.
+
+Общие props: `color?: string`, `noWrap?: boolean`, `breakWord?: boolean`, `isNumeric?: boolean`, `isItalic?: boolean`, `as?` (HTML-тег), плюс spacing-props. Текст передаётся через `children`.
 
 ```jsx
-import { Button, Card, Text } from '@salutejs/plasma-web'
+<H3>Заголовок страницы</H3>
+<TextL>Основной текст</TextL>
+<BodyM color="var(--text-secondary)">Вторичный текст</BodyM>
 ```
 
-Не импортируйте компоненты из других UI-kit библиотек, если пользователь явно не просит миграцию.
+> `HeadlineL/M/S` НЕ существуют. Для заголовков используйте `H1`…`H6` или `DsplL/M/S`.
 
-### Стиль кода
+---
 
-- Используйте React functional components.
-- Компоненты называйте в `PascalCase`: `LoginForm`, `ProductCard`, `ConfirmDeleteModal`.
-- Props пишите в `camelCase`.
-- Для простых static UI не добавляйте hooks.
-- Для управляемого Modal используйте `useState`.
-- Для списков используйте `.map()` и стабильный `key`.
-- Не используйте inline style, если есть layout props.
-
-### Токены
-
-#### Размеры
-
-```ts
-size: 'xs' | 's' | 'm' | 'l' | 'xl'
-```
-
-Default: `m`.
-
-#### Цветовые тона
-
-```ts
-tone: 'neutral' | 'success' | 'warning' | 'danger' | 'info'
-```
-
-Default: `neutral`.
-
-#### Варианты кнопок
-
-```ts
-view: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'link'
-```
-
-Default: `primary`.
-
-#### Отступы
-
-```ts
-padding: 'none' | 'xs' | 's' | 'm' | 'l' | 'xl'
-```
-
-Default: `m`.
-
-## Layout-компоненты
+## Layout
 
 ### Card
 
-Назначение: контейнер для группировки контента.
+Контейнер для группировки контента.
 
-Props:
+Props (реальные):
 
-| Prop       | Type                | Default | Описание            |
-| ---------- | ------------------- | ------- | ------------------- |
-| `padding`  | `padding`           | `'m'`   | Внутренние отступы. |
-| `radius`   | `'s' \| 'm' \| 'l'` | `'m'`   | Скругление.         |
-| `shadow`   | `boolean`           | `true`  | Показывать тень.    |
-| `children` | `ReactNode`         | —       | Контент.            |
+| Prop             | Type                         | Default     | Описание    |
+| ---------------- | ---------------------------- | ----------- | ----------- |
+| `size`           | `'s' \| 'm' \| 'l'`          | —           | Размер.     |
+| `view`           | `string`                     | `'default'` | Вид.        |
+| `orientation`    | `'horizontal' \| 'vertical'` | —           | Ориентация. |
+| `selected`       | `boolean`                    | —           | Выбрана.    |
+| `backgroundType` | `'none' \| 'solid'`          | —           | Фон.        |
+| `children`       | `ReactNode`                  | —           | Контент.    |
 
-Пример:
+> У `Card` НЕТ props `padding`, `radius`, `shadow`. Отступы/скругление/тень задавайте styled-обёрткой вокруг или внутри Card.
 
 ```jsx
-<Card padding="l" radius="l" shadow={true}>
-  <TextM>Контент внутри карточки</TextM>
+const CardBody = styled.div`
+  padding: 24px;
+`
+<Card>
+  <CardBody>
+    <TextM>Контент карточки</TextM>
+  </CardBody>
 </Card>
 ```
 
 ### Cell
 
-Назначение: элемент списка или группы.
-
-Props:
-
-| Prop       | Type        | Default | Описание            |
-| ---------- | ----------- | ------- | ------------------- |
-| `padding`  | `padding`   | `'m'`   | Внутренние отступы. |
-| `before`   | `ReactNode` | —       | Контент слева.      |
-| `after`    | `ReactNode` | —       | Контент справа.     |
-| `children` | `ReactNode` | —       | Основной контент.   |
-
-Пример:
-
-```jsx
-<Cell before={<Avatar url="/avatar.jpg" name="Иван" />} after={<Badge tone="success">Активен</Badge>}>
-  <TextM>Иван Иванов</TextM>
-</Cell>
-```
+Элемент списка. Props: `contentLeft`, `content` (основной), `contentRight` — уточняйте через MCP.
 
 ### Divider
 
-Назначение: горизонтальная линия-разделитель.
+Горизонтальный разделитель. Уточняйте props через MCP.
 
-Props:
-
-| Prop       | Type        | Default | Описание              |
-| ---------- | ----------- | ------- | --------------------- |
-| `padding`  | `padding`   | `'m'`   | Отступы сверху/снизу. |
-| `children` | `ReactNode` | —       | Текст разделителя.    |
-
-Пример:
-
-```jsx
-<Divider padding="m">Раздел</Divider>
-```
-
-### Section
-
-Назначение: смысловой блок внутри страницы.
-
-Props:
-
-| Prop       | Type        | Default | Описание            |
-| ---------- | ----------- | ------- | ------------------- |
-| `padding`  | `padding`   | `'m'`   | Внутренние отступы. |
-| `header`   | `ReactNode` | —       | Заголовок секции.   |
-| `children` | `ReactNode` | —       | Контент.            |
-
-Пример:
-
-```jsx
-<Section header={<HeadlineS>Настройки</HeadlineS>} padding="l">
-  <TextM>Контент секции</TextM>
-</Section>
-```
-
-## Typography
-
-### HeadlineL
-
-Назначение: крупный заголовок.
-
-Props:
-
-| Prop       | Type        | Default     | Описание      |
-| ---------- | ----------- | ----------- | ------------- |
-| `tone`     | `tone`      | `'neutral'` | Цветовой тон. |
-| `children` | `ReactNode` | —           | Текст.        |
-
-Пример:
-
-```jsx
-<HeadlineL tone="neutral">Добро пожаловать</HeadlineL>
-```
-
-### HeadlineM
-
-Назначение: средний заголовок.
-
-Props:
-
-| Prop       | Type        | Default     | Описание      |
-| ---------- | ----------- | ----------- | ------------- |
-| `tone`     | `tone`      | `'neutral'` | Цветовой тон. |
-| `children` | `ReactNode` | —           | Текст.        |
-
-Пример:
-
-```jsx
-<HeadlineM tone="neutral">Профиль пользователя</HeadlineM>
-```
-
-### HeadlineS
-
-Назначение: мелкий заголовок.
-
-Props:
-
-| Prop       | Type        | Default     | Описание      |
-| ---------- | ----------- | ----------- | ------------- |
-| `tone`     | `tone`      | `'neutral'` | Цветовой тон. |
-| `children` | `ReactNode` | —           | Текст.        |
-
-Пример:
-
-```jsx
-<HeadlineS tone="neutral">Дополнительная информация</HeadlineS>
-```
-
-### TextL
-
-Назначение: крупный текст.
-
-Props:
-
-| Prop       | Type        | Default     | Описание      |
-| ---------- | ----------- | ----------- | ------------- |
-| `tone`     | `tone`      | `'neutral'` | Цветовой тон. |
-| `children` | `ReactNode` | —           | Текст.        |
-
-Пример:
-
-```jsx
-<TextL tone="neutral">Основной текст страницы</TextL>
-```
-
-### TextM
-
-Назначение: средний текст.
-
-Props:
-
-| Prop       | Type        | Default     | Описание      |
-| ---------- | ----------- | ----------- | ------------- |
-| `tone`     | `tone`      | `'neutral'` | Цветовой тон. |
-| `children` | `ReactNode` | —           | Текст.        |
-
-Пример:
-
-```jsx
-<TextM tone="neutral">Описание элемента</TextM>
-```
-
-### TextS
-
-Назначение: мелкий текст.
-
-Props:
-
-| Prop                                      | Type   | Default                   | Описание |
-| ----------------------------------------- | ------ | ------------------------- | -------- |
-| `tone`                                    | `tone` | `'neutral'` Цветовой тон. |
-| `children` children    —           Текст. |
-
-Пример:
-
-```jsx
-<TextS tone="neutral">Вспомогательный текст</TextS>
-```
-
-### BodyL / BodyM / BodyS
-
-Назначение: абзацы текста.
-
-Props: как у TextL/M/S.
+---
 
 ## Actions
 
 ### Button
 
-Назначение: кнопка для основного или вторичного действия.
+Props (реальные):
 
-Props:
+| Prop                         | Type                              | Default     | Описание                                        |
+| ---------------------------- | --------------------------------- | ----------- | ----------------------------------------------- |
+| `text`                       | `string`                          | —           | Текст кнопки (предпочтительно вместо children). |
+| `view`                       | `string`                          | `'default'` | Стиль (набор зависит от версии — см. MCP).      |
+| `size`                       | `'xs' \| 's' \| 'm' \| 'l'`       | `'m'`       | Размер.                                         |
+| `stretching`                 | `'auto' \| 'filled' \| 'fixed'`   | `'auto'`    | Растяжение (`'filled'` = на всю ширину).        |
+| `disabled`                   | `boolean`                         | `false`     | Заблокирована.                                  |
+| `isLoading`                  | `boolean`                         | `false`     | Состояние загрузки.                             |
+| `contentLeft`/`contentRight` | `ReactElement`                    | —           | Иконки.                                         |
+| `onClick`                    | `() => void`                      | —           | Обработчик.                                     |
+| `type`                       | `'button' \| 'submit' \| 'reset'` | `'button'`  | Тип.                                            |
 
-| Prop        Type                                                                     Default     Описание                                                            |
-| ----------- ------------------------------------------------------------------------ ----------- ------------------------------------------------------------------- |
-| `view`      `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'danger' \| 'link'` `'primary'` Визуальный стиль.                                                   |
-| `size`      `'s' \| 'm' \| 'l'`                                                   `'m'`      Размер.                                                             |
-| `type`      `'button' \| 'submit' \| 'reset'                                        `'button'`  Тип кнопки.                                                         |
-| `disabled`  boolean                                                                false     Заблокирована ли кнопка.                                            |
-| `loading   boolean                                                                false     Показывать состояние загрузки.                                      |
-| fullWidth   boolean                                                                false     Растянуть на всю ширину.                                            |
-| onClick     () => void                                                             —           Обработчик клика. Не добавлять пустой обработчик без необходимости. |
-| text        string                                                                 —           Текст кнопки.                                                      |
-
-Правила:
-
-- Для destructive action используйте `view="danger"`.
-- Для главного действия на странице используйте view="primary"`.
-- Для отмены используйте view="secondary"` или view="ghost"`.
-
-Пример:
+> Нет prop `fullWidth` — используйте `stretching="filled"`. Нет prop `loading` — используйте `isLoading`.
 
 ```jsx
-<Button view="danger" size="m" text="Удалить" />
+<Button view="primary" size="m" text="Сохранить" />
+<Button view="primary" stretching="filled" text="На всю ширину" />
 ```
 
 ### IconButton
 
-Назначение: компактная кнопка с иконкой.
-
-Props:
-
-| Prop         Type                   Default   Описание                        |
-| ------------ ---------------------- --------- ------------------------------- |
-| aria-label   string               —         Обязательная доступная подпись. |
-| view         Button['view']       `'ghost'` Стиль.                          |
-| size         `'s' \| 'm' \| 'l'    `'m'`    Размер.                         |
-| disabled     boolean              false     Заблокирована ли кнопка.        |
-
-Пример:
-
-```jsx
-<IconButton aria-label="Удалить" view="ghost" size="m">
-  {/* иконка */}
-</IconButton>
-```
+Props: `view`, `size`, `disabled`, `aria-label` (обязательно для доступности), `children` (иконка).
 
 ### LinkButton
 
-Назна��ение: кнопка в виде ссылки.
+Кнопка-ссылка. Props: `href`, `text`, `view`, `size` — уточняйте через MCP.
 
-Props:
-
-| Prop       Type        Default   Описание                      |
-| ---------- ----------- --------- ----------------------------- |
-| href       string    —         URL.                          |
-| view       Button['view'] `'link' Стиль.                          |
-| text       string    —           Текст ссылки.                 |
-
-Пример:
-
-```jsx
-<LinkButton href="/profile" text="Перейти в профиль" />
-```
+---
 
 ## Forms
 
 ### TextField
 
-Назначение: однострочное поле ввода.
+Props (реальные):
 
-Props:
-
-| Prop           Type                                                                        Default  Описание                       |
-| -------------- --------------------------------------------------------------------------- -------- ------------------------------ |
-| id             string                                                                    —        ID для связи с label.          |
-| name           string                                                                    —        Имя поля.                      |
-| label          string                                                                    —        Видимая подпись.               |
-| type           `'text' \| 'email' \| 'password' \| 'number' \| 'tel' \| 'url' \| 'search'` `'text'` Тип input.                     |
-| placeholder    string                                                                    —        Подсказка.                     |
-| value          string \| number                                                          —        Значение для controlled input. |
-| defaultValue   string \| number                                                          —        Значение по умолчанию.         |
-| required       boolean                                                                   false    Обязательное поле.             |
-| disabled       boolean                                                                   false    Заблокировано.                 |
-
-Пример:
+| Prop                         | Type                                                   | Default  | Описание                      |
+| ---------------------------- | ------------------------------------------------------ | -------- | ----------------------------- |
+| `label`                      | `string`                                               | —        | Подпись.                      |
+| `placeholder`                | `string`                                               | —        | Подсказка.                    |
+| `value`/`defaultValue`       | `string`                                               | —        | Значение.                     |
+| `type`                       | `string` (`text`/`email`/`password`/`number`/`tel`...) | `'text'` | Тип input.                    |
+| `size`                       | `string`                                               | —        | Размер.                       |
+| `view`                       | `string`                                               | —        | Вид (для статусов валидации). |
+| `required`                   | `boolean`                                              | `false`  | Обязательное.                 |
+| `disabled`                   | `boolean`                                              | `false`  | Заблокировано.                |
+| `contentLeft`/`contentRight` | `ReactElement`                                         | —        | Иконки.                       |
+| `titleCaption`               | `ReactNode`                                            | —        | Подпись-заголовок.            |
+| `id`/`name`                  | `string`                                               | —        | Атрибуты формы.               |
 
 ```jsx
 <TextField id="email" name="email" label="Email" type="email" placeholder="you@example.com" required />
 ```
 
 ### TextArea
-
-Назначение: многострочное поле.
-
-Props: как у TextField, дополнительно:
-
-| Prop     Type                                   Default      Описание           |
-| -------- -------------------------------------- ------------ ------------------ |
-| rows     number                               4            Количество строк.  |
-
-Пример:
-
-```jsx
-<TextArea id="description" name="description" label="Описание" rows={4} />
-```
+Многострочное поле. Props похожи на TextField (`label`, `value`, `rows`...). Уточняйте через MCP.
 
 ### Select
+Выбор значения. Props: `label`, `value`, `items`/`options` (структура зависит от версии — проверяйте `get_component_props`).
 
-Назначение: выбор одного значения из списка.
+### Checkbox / Switch
+Props: `label`, `checked`/`defaultChecked`, `disabled`, `id`, `name`.
 
-Props:
+### Radiobox
 
-| Prop           Type                                 Default Описание           |
-| -------------- ------------------------------------ ------- ------------------ |
-| id             string                             —       ID.                |
-| name           string                             —       Имя поля.          |
-| label          string                             —       Подпись.           |
-| placeholder    string                             —       Placeholder.       |
-| options        { label: string; value: string }[]  []      Список опций.      |
-| value          string                             —       Controlled value.  |
-| defaultValue   string                             —       Default value.     |
+> Компонент называется `Radiobox`, НЕ `Radio`.
 
-Пример:
+Props: `name`, `value`, `label`, `checked`/`disabled` — уточняйте через MCP.
 
 ```jsx
-<Select
-  id="role"
-  name="role"
-  label="Роль"
-  placeholder="Выберите роль"
-  options={[
-    { label: 'Администратор', value: 'admin' },
-    { label: 'Пользователь', value: 'user' }
-  ]}
-/>
+<Radiobox name="payment" value="card" label="Картой" />
+<Radiobox name="payment" value="cash" label="Наличными" />
 ```
 
-### Checkbox
-
-Назначение: boolean-переключатель.
-
-Props:
-
-| Prop             Type      Default Описание          |
-| ---------------- --------- ------- ----------------- |
-| id               string    —       ID.               |
-| name             string    —       Имя.              |
-| label            string    —       Подпись.          |
-| checked          boolean   —       Controlled state. |
-| defaultChecked   boolean   false   Default state.    |
-
-Пример:
-
-```jsx
-<Checkbox id="agree" name="agree" label="Согласен с условиями" />
-```
-
-### Switch
-
-Назначение: переключатель настройки.
-
-Props:
-
-| Prop             Type      Default Описание          |
-| ---------------- --------- ------- ----------------- |
-| id               string    —       ID.               |
-| name             string    —       Имя.              |
-| label            string    —       Подпись.          |
-| checked          boolean   —       Controlled state. |
-
-Пример:
-
-```jsx
-<Switch id="notifications" name="notifications" label="Уведомления" />
-```
-
-### Radio
-
-Назначение: переключатель выбора одного варианта.
-
-Props:
-
-| Prop       Type                                        Default     Описание                               |
-| ---------- ------------------------------------------- ----------- -------------------------------------- |
-| name       string                                      —           Имя группы.                           |
-| value      string                                      —           Значение варианта.                    |
-| label      string                                      —           Подпись варианта.                     |
-
-Пример:
-
-```jsx
-<Radio name="payment" value="card" label="Картой" />
-<Radio name="payment" value="cash" label="Наличными" />
-```
+---
 
 ## Containers and content
 
 ### Avatar
-
-Назначение: аватар пользователя.
-
-Props:
-
-| Prop   Type     Default   Описание                   |
-| ------ -------- --------- -------------------------- |
-| url    string   —         URL изображения.           |
-| name   string   —         Имя для fallback initials. |
-| size   `'s'\|"m'\|"l'\|"xl"` `'m'    Размер.                    |
-
-Пример:
-
+Props: `url` (НЕ `src`), `name` (fallback-инициалы), `size` (`s/m/l/xl/xxl`), `view`.
 ```jsx
 <Avatar url="/avatar.jpg" name="Иван Иванов" size="l" />
 ```
 
 ### Badge
-
-Назначение: маленькая метка статуса.
-
-Props:
-
-| Prop       Type           Default     Описание      |
-| ---------- -------------- ----------- ------------- |
-| tone       tone           `'neutral'` Цветовой тон. |
-| size       `'s'\|"m'\|"l"` `'m'      Размер.       |
-
-Пример:
-
+Маленькая метка статуса. Props: `text`, `view`, `size`. Уточняйте через MCP.
 ```jsx
-<Badge tone="success" size="m">Активен</Badge>
+<Badge text="Активен" view="success" size="m" />
 ```
+
+### Chip
+Метка для категорий/фильтров (вместо несуществующего `Tag`). Props: `text`, `view`, `size`, `onClick`. Уточняйте через MCP.
 
 ### Progress
-
-Назначение: индикатор прогресса.
-
-Props:
-
-| Prop        Type     Default     Описание           |
-| ----------- -------- ----------- ------------------ |
-| value       number   0           Текущее значение (0-100).|
-| max         number   100         Максимальное значение.|
-
-
-Пример:
-
-```jsx
-<Progress value={75} max={100} />
-```
-
-### Tag
-
-Назначение: метка для категорий или фильтров.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-text string - Текст метки.
-view `'primary'\|"secondary'\|"outline'\|"ghost'\|"danger'\|"link"` `'primary' Стиль.
-size `'s'\|"m'\|"l"` `'m' Размер.
-
-Пример:
-
-```jsx
-<Tag text="Кат��гория" view="outline" size="s" />
-```
+Индикатор прогресса. Props: `value` (0–100). Уточняйте через MCP.
 
 ### Tooltip
+Подсказка при наведении. Props: `text`/`content`, `placement`, `children`.
 
-Назначение: краткая подсказка при наведении/фокусе.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-content ReactNode - Текст подсказки.
-placement `'top'\|"right'\|"bottom'\|"left"` `'top' Позиция.
-children ReactNode - Целевой элемент.
-
-Пример:
-
-```jsx
-<Tooltip content="Информация о пользователе">
-  <InfoIcon />
-</Tooltip>
-```
+---
 
 ## Data display
 
 ### Table
-
-Назначение: табличное отображение данных.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-columns { key: string; title: string; align?: 'start'\|"center'\|"end'}[] [] Колонки.
-data Record<string, ReactNode>[] [] Строки.
-rowKey string `'id' Поле уникального ключа.
-striped boolean false Полосатые строки.
-compact boolean false Компактный режим.
-
-Пример:
-
-```jsx
-<Table
-  columns={[
-    { key: 'name', title: 'Название', align: 'start' },
-    { key: 'price', title: 'Цена', align: 'end' }
-  ]}
-  data={[
-    { id: '1', name: 'Pro Plan', price: '990 ₽' },
-    { id: '2', name: 'Basic Plan', price: '490 ₽' }
-  ]}
-  rowKey="id"
-/>
-```
+Табличное отображение. Структура `columns`/`data`/`rowKey` зависит от версии — **обязательно** проверяйте через `get_component_props` и `get_component_examples`, т.к. API таблицы часто меняется.
 
 ### Pagination
-
-Назначение: навигация по страницам данных.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-page number 1 Текущая страница.
-totalPages number - Всего страниц.
-onPageChange (page: number) => void - Обработчик изменения.
-
-Пример:
-
-```jsx
-<Pagination page={1} totalPages={5} onPageChange={(page) => console.log(page)} />
-```
+Навигация по страницам. Props зависят от версии — проверяйте через MCP.
 
 ### EmptyState
+Состояние пустого списка. Props: `title`, `text`/`description`, `actions`. Уточняйте через MCP.
 
-Назначение: состояние пустого списка.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-title string - Заголовок.
-description string - Описание.
-action ReactNode - CTA кнопка.
-
-Пример:
-
-```jsx
-<EmptyState
-  title="Проектов пока нет"
-  description="Создайте первый проект, ч��обы начать работу"
-  action={<Button view="primary" text="Создать проект" />}
-/>
-```
+---
 
 ## Overlay and feedback
 
-### Overlay
-
-Назначение: затемненный слой для modal/drawer.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-open boolean - Открыт ли overlay.
-onClose () => void - Закрытие.
-children ReactNode - `Modal` или другой overlay-content.
-
-Правило: `Modal` должен быть обернут в `Overlay`.
-
-Пример:
-
+### Modal / Overlay
+Диалоговое окно. Управляется через `useState` (`open`/`onClose`). Точные props — через MCP.
 ```jsx
-<Overlay open={isOpen} onClose={() => setIsOpen(false)}>
-  <Modal title="Подтверждение">
-    <TextM>Вы уверены?</TextM>
-  </Modal>
-</Overlay>
-```
-
-### Modal
-
-Назначение: диалоговое окно поверх страницы.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-open boolean - Открыт ли модал.
-onClose () => void - Закрытие.
-title string - Заголовок.
-footer ReactNode - Кнопки действий.
-children ReactNode - Контент.
-
-Пример:
-
-```jsx
-<Modal open={isOpen} onClose={() => setIsOpen(false)} title="Подтверждение">
-  <TextM>Вы уверены?</TextM>
-  <footer style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
-    <Button view="secondary" text="Отмена" onClick={() => setIsOpen(false)} />
-    <Button view="danger" text="Удалить" onClick={handleDelete} />
-  </footer>
+const [open, setOpen] = useState(false)
+<Modal opened={open} onClose={() => setOpen(false)}>
+  <TextM>Содержимое</TextM>
 </Modal>
 ```
+> Имя prop открытия (`open` vs `opened`/`isOpen`) зависит от версии — проверяйте через MCP.
 
-### Drawer
+### Drawer / Popup / Toast / Notification
+Overlay-компоненты. Управляются состоянием. Точные props — через MCP `get_component_props`.
 
-Назначение: боковая панель.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-open boolean - Открыта ли панель.
-onClose () => void - Закрытие.
-position `'left'\|"right"` `'right' Сторона.
-title string - Заголовок.
-children ReactNode - Контент.
-
-Пример:
-
-```jsx
-<Drawer open={isOpen} onClose={() => setIsOpen(false)} position="right" title="Настройки">
-  <TextM>Контент боковой панели</TextM>
-</Drawer>
-```
-
-### Popup
-
-Назначение: всплывающее окно над элементом.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-open boolean - Открыт ли popup.
-onClose () => void - Закрытие.
-target HTMLElement - Целевой элемент.
-placement `'top'\|"right'\|"bottom'\|"left"` `'bottom' Позиция.
-children ReactNode - Контент.
-
-Пример:
-
-```jsx
-<Popup open={isOpen} onClose={() => setIsOpen(false)} target={ref.current} placement="bottom">
-  <TextM>Всплывающая подсказка</TextM>
-</Popup>
-```
-
-### Toast
-
-Назначение: короткое уведомление.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-open boolean - Открыт ли toast.
-onClose () => void - Закрытие.
-tone `'success'\|"warning'\|"danger'\|"info"` `'info' Тип уведомления.
-title string - Заголовок.
-children ReactNode - Текст.
-
-Пример:
-
-```jsx
-<Toast open={isOpen} onClose={() => setIsOpen(false)} tone="success" title="Успешно">
-  Данные сохранены
-</Toast>
-```
+---
 
 ## Navigation
 
 ### Tabs
-
-Назначение: переключение между секци��ми.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-items { value: string; title: ReactNode }[] - Вкладки.
-value string - Активная вкладка.
-defaultValue string - Активная вкладка по умолчанию.
-onChange (value: string) => void - Обработчик изменения.
-
-Пример:
-
-```jsx
-<Tabs
-  items={[
-    { value: 'profile', title: <HeadlineS>Профиль</HeadlineS> },
-    { value: 'settings', title: <HeadlineS>Настройки</HeadlineS> }
-  ]}
-  value={activeTab}
-  onChange={(value) => setActiveTab(value)}
-/>
-```
+Переключение секций. Props: `items`/`value`/`onChange` или дочерние `TabItem` — структура зависит от версии, проверяйте через MCP.
 
 ### Breadcrumbs
+Навигация по иерархии. Props: `items` (массив `{ label, href }`). Уточняйте через MCP.
 
-Назначение: навигация по иерархии страниц.
+---
 
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-items { label: string; href?: string; onClick?: () => void }[] - Массив элементов хлебных крошек.
-separator string `'/' Сепаратор между элементами.
-maxVisible number - Максимальное количество видимых элементов.
-onSelect (item: { label: string; href?: string }) => void - Обработчик клика по элементу.
-
-Пример:
-
-```jsx
-<Breadcrumbs
-  items={[
-    { label: 'Главная', href: '/' },
-    { label: 'Каталог', href: '/catalog' },
-    { label: 'Электроника' }
-  ]}
-/>
-```
-
-### Spinner
-
-Назначение: индикатор загрузки.
-
-Props:
-
-**Prop** **Type** **Default** **Описание**
---- --- --- ---
-size `'s' | 'm' | 'l'` 'm' Размер.
-label string 'Загрузка' Доступная подпись.
-
-Пример:
-
-```jsx
-<Spinner size="m" label="Загрузка данных" />
-```
+## Spinner
+Индикатор загрузки. Props: `size`, `color`. Уточняйте через MCP.

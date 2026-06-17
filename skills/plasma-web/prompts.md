@@ -9,8 +9,8 @@
 1. **Не дообучай модель и не описывай процесс дообучения.** Ты работаешь через инструкции, документацию и примеры.
 2. **Генерируй UI на Plasma Web.** Используй импорт из `@salutejs/plasma-web`.
 3. **Не выдумывай неизвестный API.** Сверяйся с MCP `plasma-web`: `list_components` (есть ли компонент), `get_component_props` (актуальные props/типы/дефолты), `get_component_examples` (примеры). Если компонента или prop нет в MCP — выбери ближайший подтверждённый вариант или спроси пользователя.
-4. **Предпочитай компонентную семантику.** Используй `Card`, `Cell`, `Divider`, `HeadlineL/M/S`, `TextL/M/S`, `Button`, `TextField` вместо "голых" `div`, `span`, `button`, `input`.
-5. **Запрет "голых" div:** используй семантические теги `<header>`, `<main>`, `<footer>`, `<aside>` или styled-components (`Page`, `Content`, `Section`) вместо "голых" div.
+4. **Предпочитай компонентную семантику.** Используй `Card`, `Cell`, `Divider`, `H1..H6`, `DsplL/M/S`, `TextL/M/S`, `BodyL/M/S`, `Button`, `TextField` вместо "голых" `div`, `span`, `button`, `input`.
+5. **Запрет "голых" div:** используй семантические теги `<header>`, `<main>`, `<footer>`, `<aside>` или styled-components (`Page`, `Content`, `Wrapper`) вместо "голых" div.
 6. **Делай код самодостаточным.** Ответ должен содержать imports, компонент и `export default`.
 7. **Пиши доступный UI.** Для input/select/checkbox используй `id`, `name`, `label`; для icon-only actions — `aria-label`.
 8. **Состояние добавляй только по необходимости.** Для простых карточек, форм без реальной отправки и статичных страниц hooks не нужны. Для `Modal` используй `useState`.
@@ -68,19 +68,20 @@
 - Используй `Card` как контейнер, если форма самостоятельная.
 - Используй `TextField` для email/password/name/search.
 - Для длинного текста используй `TextArea`.
-- Для выбора из списка используй `Select` или `Radio`.
+- Для выбора из списка используй `Select` или `Radiobox`.
 - Для boolean-настроек используй `Checkbox` или `Switch`.
-- Submit-кнопка: `Button type="submit" view="primary"`.
+- Submit-кнопка: `Button type="submit" view="primary" stretching="filled"`.
 - Не добавляй `onSubmit`, если пользователь не просит бизнес-логику.
 
 ### Если пользователь просит карточку
 
-- Используй `Card` с padding и radius.
-- Заголовок: `HeadlineS` или `HeadlineM`.
-- Описание: `TextM tone="neutral"`.
-- Статус: `Badge tone="success"` или другой.
+- Используй `Card` как контейнер.
+- Заголовок: `H1`..`H6` или `DsplL/M/S`.
+- Описание: `TextM` или `BodyM`.
+- Статус: `Badge text="..." view="success"` или другой.
 - Главное действие: `Button view="primary"`.
 - Опасное действие: `Button view="danger"`.
+- У `Card` нет props `padding`, `radius`, `shadow` — стилизуй через styled-обёртку внутри Card.
 
 ### Если пользователь просит страницу
 
@@ -156,13 +157,14 @@
 - [ ] Есть импорт из `styled-components` с `createGlobalStyle`.
 - [ ] Есть `<Theme />` первым элементом в fragment.
 - [ ] Нет импортов из `@coreui/react`, `@prisma-ui/react`, MUI, Ant Design.
-- [ ] Используются документированные props (view, size, padding, radius, shadow).
+- [ ] Используются документированные props (view, size, stretching).
 - [ ] Для форм есть `label`, `id`, `name`.
 - [ ] Для destructive actions используется view="danger".
 - [ ] Для modal есть open и onClose.
 - [ ] Код содержит `export default function App()` или `export default ComponentName`.
 - [ ] JSX не содержит "голых" div — используются семантические теги или styled-components.
 - [ ] JSX не содержит лишних комментариев и псев��окода.
+- [ ] НЕ используются `HeadlineL/M/S`, `Section`, `Tag`, `Radio` (это галлюцинации — см. docs/components.md).
 
 ## Negative examples
 
