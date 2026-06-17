@@ -24,8 +24,8 @@ skills/
 ├── init-ui-project/   — инициализация нового проекта
 ├── create-layout/     — создание reusable layout-компонентов
 ├── list-layouts/      — просмотр доступных layout'ов
-└── plasma-web/        — документация и prompt-инструкции для генерации UI на Plasma Web
-    ├── SKILL.md — главная инструкция для агента (объединяет generate-page)
+└── generate-page/     — генерация React/JSX страниц на Plasma Web
+    ├── SKILL.md — главная инструкция для агента
     ├── README.md — описание skill
     ├── prompts.md — prompt-инструкции для Qwen
     └── docs/
@@ -51,14 +51,14 @@ skills/
 ### `list-layouts`
 Показывает список всех доступных layout'ов в проекте
 
-### `plasma-web`
+### `generate-page`
 Помогает агенту генерировать React UI на базе Plasma Web:
 - каталог компонентов, props и правила композиции;
 - эталонные запросы и ответы для типовых UI-задач;
 - prompt-инструкции для Qwen;
 - правила подключения темы и стилей;
 - запрет на смешивание UI-kit'ов;
-- процедура генерации и сохранения страниц (объединён с generate-page).
+- генерация страниц и публикация через MCP `ui-generator-mcp`.
 
 ## Технологии
 
@@ -77,7 +77,7 @@ npx -y @salutejs/sdds-mcp@latest --lib plasma-web --version latest
 
 и отдаёт агенту актуальную документацию: `list_components`, `get_component_props`, `get_component`, `get_component_examples`, `get_tokens`, `get_installation_guide` и др.
 
-Это источник истины по компонентам и props — каталог в `skills/plasma-web/docs/components.md` остаётся офлайн-подсказкой/конвенциями и не должен поддерживаться вручную при каждом обновлении Plasma. При расхождении приоритет за MCP.
+Это источник истины по компонентам и props — каталог в `skills/generate-page/docs/components.md` остаётся офлайн-подсказкой/конвенциями и не должен поддерживаться вручную при каждом обновлении Plasma. При расхождении приоритет за MCP.
 
 Требование: на машине, где работает агент, должны быть установлены Node.js и доступ к npm-реестру (сервер тянется через `npx`).
 
@@ -94,7 +94,7 @@ npx -y @salutejs/sdds-mcp@latest --lib plasma-web --version latest
 1. Инициализировать проект: `init-ui-project`.
 2. Создать layout: `create-layout`.
 3. Посмотреть layout'ы: `list-layouts`.
-4. Для Plasma Web ориентироваться на skill `plasma-web`.
+4. Для Plasma Web ориентироваться на skill `generate-page`.
 
 ## Документация
 
@@ -103,4 +103,4 @@ npx -y @salutejs/sdds-mcp@latest --lib plasma-web --version latest
 - `skills/init-ui-project/SKILL.md` — инициализация проекта
 - `skills/create-layout/SKILL.md` — создание layout'ов
 - `skills/list-layouts/SKILL.md` — просмотр layout'ов
-- `skills/plasma-web/SKILL.md` — генерация UI на Plasma Web
+- `skills/generate-page/SKILL.md` — генерация UI на Plasma Web

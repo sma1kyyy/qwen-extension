@@ -1,6 +1,6 @@
 ---
 name: create-layout
-description: Создаёт переиспользуемый layout-каркас (sidebar / header / footer / комбинированный) в папке layouts/ на Plasma Web. Когда применять (или максимально похоже по смыслу): создание layout, общий каркас для страниц, шаблон с сайдбаром/хедером/футером. Не для финальной страницы — для неё generate-page.
+description: Создаёт layout-каркас (header / nav / sidebar / footer) в папке layouts/ на Plasma Web и возвращает JSX-код для инлайнинга в generate-page. Может запускаться вручную или автоматически из skill generate-page. Когда применять: создание шапки, навигации, футера, общего каркаса страниц.
 ---
 
 # create-layout
@@ -61,7 +61,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
 import { Button, TextM } from '@salutejs/plasma-web'
 
-const Theme = createGlobalStyle(plasma_web__dark)
+const Theme = createGlobalStyle`${plasma_web__dark[0]}`
 
 const Layout = styled.div`
   display: flex;
@@ -110,7 +110,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
 import { Button, TextM } from '@salutejs/plasma-web'
 
-const Theme = createGlobalStyle(plasma_web__dark)
+const Theme = createGlobalStyle`${plasma_web__dark[0]}`
 
 const Layout = styled.div`
   min-height: 100vh;
@@ -118,7 +118,7 @@ const Layout = styled.div`
 
 const Header = styled.header`
   padding: 16px 32px;
-  background: var(--surface-solid-default, #080808);
+  background: #080808;
   border-bottom: 1px solid var(--border-subtle, #333);
 `
 
@@ -150,7 +150,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
 import { TextM } from '@salutejs/plasma-web'
 
-const Theme = createGlobalStyle(plasma_web__dark)
+const Theme = createGlobalStyle`${plasma_web__dark[0]}`
 
 const Layout = styled.div`
   min-height: 100vh;
@@ -161,7 +161,7 @@ const Main = styled.main`
 
 const Footer = styled.footer`
   padding: 16px 32px;
-  background: var(--surface-solid-default, #080808);
+  background: #080808;
   border-top: 1px solid var(--border-subtle, #333);
 `
 
@@ -194,7 +194,7 @@ import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
 
-const Theme = createGlobalStyle(plasma_web__dark)
+const Theme = createGlobalStyle`${plasma_web__dark[0]}`
 
 const Content = styled.div`
   min-height: 100vh;
@@ -220,7 +220,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
 import { Button, TextM } from '@salutejs/plasma-web'
 
-const Theme = createGlobalStyle(plasma_web__dark)
+const Theme = createGlobalStyle`${plasma_web__dark[0]}`
 
 const Layout = styled.div`
   display: flex;
@@ -240,7 +240,7 @@ const Main = styled.main`
 
 const Header = styled.header`
   padding: 16px 32px;
-  background: var(--surface-solid-default, #080808);
+  background: #080808;
   border-bottom: 1px solid var(--border-subtle, #333);
 `
 
@@ -283,5 +283,18 @@ export default LayoutName
 **Примечание:**
 - Замените `LayoutName` на фактическое название layout'а (в PascalCase), например `DashboardLayout`
 - Если выбрана навигация — добавьте базовые элементы навигации в соответствующие места
-- Эти layout-файлы — переиспользуемые шаблоны-обёртки. `generate-page` инлайнит их styled-обёртки в итоговую страницу `export default function App()` (страница не импортирует layout из `layouts/`, чтобы оставаться самодостаточной для песочницы)
 - Все каталоги и файлы создаются только после подтверждения пользователем
+
+## Возврат в generate-page
+
+После сохранения файла в `layouts/` всегда выводи:
+
+```
+✅ Layout сохранён: layouts/{название}.jsx
+
+Styled-компоненты для инлайнинга в страницу:
+
+// (вставь сюда все styled-компоненты из созданного layout'а: Theme, Layout, Header, Nav, Sidebar, Main, Footer и т.д.)
+```
+
+`generate-page` возьмёт эти компоненты и вставит их прямо в JSX страницы без импорта из файла.

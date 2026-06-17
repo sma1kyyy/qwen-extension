@@ -36,7 +36,28 @@ description: Инициализирует текущую папку как UI-п
 - Если "no" или "n" — начните заново с Шага 1
 - Если другой ответ — повторите запрос подтверждения
 
-### Шаг 3: Создание структуры проекта
+### Шаг 3: Проверка и настройка MCP plasma-web
+
+Перед созданием файлов проекта убедитесь, что MCP `plasma-web` зарегистрирован в настройках Qwen.
+
+Прочитайте файл `~/.qwen/settings.json`. Если в нём нет записи `mcpServers.plasma-web` — добавьте её:
+
+```json
+"mcpServers": {
+  "plasma-web": {
+    "command": "npx",
+    "args": ["-y", "@salutejs/sdds-mcp@latest", "--lib", "plasma-web", "--version", "latest"],
+    "timeout": 60000
+  }
+}
+```
+
+Если поле `mcpServers` уже есть, но записи `plasma-web` нет — добавьте только объект `plasma-web` внутрь существующего `mcpServers`.
+
+После обновления `settings.json` сообщите пользователю:
+> «MCP plasma-web зарегистрирован. Перезапустите Qwen Code, чтобы сервер запустился автоматически. После перезапуска проверьте, что в списке MCP появился `plasma-web`.»
+
+### Шаг 4: Создание структуры проекта
 
 Создайте файл `ui-project.xml` со следующим содержимым:
 ```xml
@@ -68,8 +89,7 @@ skills/
 ├── init-ui-project/   — инициализация нового проекта
 ├── create-layout/     — создание reusable layout-компонентов
 ├── list-layouts/      — просмотр доступных layout'ов
-├── generate-page/     — генерация JSX-страниц
-└── plasma-web/        — документация и prompt-инструкции для генерации UI на Plasma Web
+└── generate-page/     — генерация React/JSX страниц на Plasma Web
     ├── SKILL.md — главная инструкция для агента
     ├── README.md — описание skill
     ├── prompts.md — prompt-инструкции для Qwen
@@ -98,9 +118,6 @@ skills/
 Показывает список всех доступных layout'ов в проекте
 
 ### `generate-page`
-Генерирует JSX-страницы в `pages/`. По умолчанию использует Plasma Web и сохраняет самодостаточный файл с экспортом `export default function App() { ... }`.
-
-### `plasma-web`
 Помогает агенту генерировать React UI на базе Plasma Web:
 - каталог компонентов, props и правил композиции;
 - эталонные запросы и ответы для типовых UI-задач;
@@ -130,7 +147,7 @@ skills/
 2. Создать layout: `create-layout`.
 3. Посмотреть layout'ы: `list-layouts`.
 4. Сгенерировать страницу: `generate-page`.
-5. Для Plasma Web ориентироваться на skill `plasma-web`.
+5. Для Plasma Web ориентироваться на skill `generate-page`.
 
 ## Установка
 
@@ -153,14 +170,14 @@ skills/
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, TextL, HeadlineM } from '@salutejs/plasma-web'
+import { Button, TextL, H3 } from '@salutejs/plasma-web'
 
-const Theme = createGlobalStyle(plasma_web__dark)
+const Theme = createGlobalStyle`${plasma_web__dark[0]}`
 
 const Page = styled.div`
   min-height: 100vh;
   padding: 32px;
-  background: var(--surface-solid-default, #080808);
+  background: #080808;
   color: var(--text-primary, #ffffff);
 `
 
@@ -169,7 +186,7 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <HeadlineM>Заголовок</HeadlineM>
+        <H3>Заголовок</H3>
         <TextL>Описание страницы</TextL>
         <Button view="primary" text="Действие" />
       </Page>
@@ -181,10 +198,10 @@ export default function App() {
 ## Документация Plasma Web
 
 Для генерации UI используйте правила из:
-- `skills/plasma-web/SKILL.md`
-- `skills/plasma-web/prompts.md`
-- `skills/plasma-web/docs/components.md`
-- `skills/plasma-web/docs/examples.md`
+- `skills/generate-page/SKILL.md`
+- `skills/generate-page/prompts.md`
+- `skills/generate-page/docs/components.md`
+- `skills/generate-page/docs/examples.md`
 ```
 
-**Примечание:** Все каталоги и файлы создаются только после подтверждения пользователем.
+**Примечание:** Все каталоги и файлы создаются только после подтверждения пользователем. MCP-запись в `settings.json` добавляется автоматически на Шаге 3 — пользователю не нужно делать это вручную.
