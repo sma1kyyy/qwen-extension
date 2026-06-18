@@ -1,6 +1,6 @@
 {
   "name": "ui-code-generator",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "skills": "skills",
   "mcpServers": {
     "ui-generator-mcp": {
