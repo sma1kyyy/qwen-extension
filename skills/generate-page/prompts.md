@@ -73,15 +73,6 @@
 - Submit-кнопка: `Button type="submit" view="primary" stretching="filled"`.
 - Не добавляй `onSubmit`, если пользователь не просит бизнес-логику.
 
-### Если пользователь просит карточку
-
-- Используй `Card` как контейнер.
-- Заголовок: `H1`..`H6` или `DsplL/M/S`.
-- Описание: `TextM` или `BodyM`.
-- Статус: `Badge text="..." view="success"` или другой.
-- Главное действие: `Button view="primary"`.
-- Опасное действие: `Button view="danger"`.
-- У `Card` нет props `padding`, `radius`, `shadow` — стилизуй через styled-обёртку внутри Card.
 
 ### Если пользователь просит страницу
 
@@ -159,7 +150,6 @@
 - [ ] Нет импортов из `@coreui/react`, `@prisma-ui/react`, MUI, Ant Design.
 - [ ] Используются документированные props (view, size, stretching).
 - [ ] Для форм есть `label`, `id`, `name`.
-- [ ] Для destructive actions используется view="danger".
 - [ ] Для modal есть open и onClose.
 - [ ] Код содержит `export default function App()` или `export default ComponentName`.
 - [ ] JSX не содержит "голых" div — используются семантические теги или styled-components.

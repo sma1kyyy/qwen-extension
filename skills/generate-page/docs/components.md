@@ -9,26 +9,6 @@
 > ⚠️ **Источник истины — MCP-сервер `plasma-web` (`@salutejs/sdds-mcp`), а не этот файл.**
 > Этот файл — резервная офлайн-документация. Использовать только с явного разрешения пользователя при недоступном MCP.
 
----
-
-## Частые галлюцинации (НЕ существуют — песочница падает)
-
-| Выдуманное | Реальное |
-|---|---|
-| `HeadlineL/M/S` | `H1`…`H6`, `DsplL/M/S` |
-| `Section` (компонент Plasma) | нет — styled-component или `<section>` |
-| `Tag` | `Chip` |
-| `Radio` | `Radiobox` |
-| `Heading` / `Text` (без размера) | `H1`…`H6` / `TextL/M/S`, `BodyL/M/S` |
-| `Card` с `padding`/`radius`/`shadow` | таких props нет — используйте `CardContent` или styled-обёртку |
-| `Button fullWidth` | `Button stretching="filled"` |
-| `Avatar src` | `Avatar url` |
-| `Badge tone="success"` | `Badge view="positive"` (`tone` не существует) |
-| `Button view="danger"` | `Button view="critical"` (`danger` не существует) |
-| `Button view="outline"` | `Button view="secondary"` или `view="clear"` |
-
----
-
 ## Полный список компонентов (реальные экспорты v1.623.0)
 
 ```
@@ -132,10 +112,6 @@ const CardBody = styled.div`
 | `contentRight` | `ReactNode` | — | Иконка справа |
 | `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML-тип |
 | `onClick` | `() => void` | — | Обработчик |
-
-> ❌ `view="danger"` — не существует, используйте `view="critical"`
-> ❌ `view="outline"` — не существует, используйте `view="secondary"` или `view="clear"`
-> ❌ `fullWidth` — не существует, используйте `stretching="filled"`
 
 ```jsx
 <Button view="primary" size="m" text="Сохранить" />
