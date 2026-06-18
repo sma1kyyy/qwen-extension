@@ -9,8 +9,8 @@ skills/
 ├── init-ui-project/   — инициализация нового проекта
 ├── create-layout/     — создание reusable layout-компонентов
 ├── list-layouts/      — просмотр доступных layout'ов
-└── plasma-web/        — документация и prompt-инструкции для генерации UI на Plasma Web
-    ├── SKILL.md — главная инструкция для агента (объединяет generate-page)
+└── generate-page/     — генерация React/JSX страниц на Plasma Web
+    ├── SKILL.md — главная инструкция для агента
     ├── README.md — описание skill
     ├── prompts.md — prompt-инструкции для Qwen
     └── docs/
@@ -36,14 +36,14 @@ skills/
 ### `list-layouts`
 Показывает список всех доступных layout'ов в проекте
 
-### `plasma-web`
+### `generate-page`
 Помогает агенту генерировать React UI на базе Plasma Web:
 - каталог компонентов, props и правила композиции;
 - эталонные запросы и ответы для типовых UI-задач;
 - prompt-инс��рукции для Qwen;
 - правила подключения темы и стилей;
 - запрет на смешивание UI-kit'ов;
-- процедура генерации и сохранения страниц (объединён с generate-page).
+- генерация страниц и публикация через MCP `ui-generator-mcp`.
 
 ## Технологии
 
@@ -84,7 +84,7 @@ npm install --save styled-components@5.3.1
 1. Инициализировать проект: `init-ui-project`.
 2. Создать layout: `create-layout`.
 3. Посмотреть layout'ы: `list-layouts`.
-4. Для Plasma Web ориентироваться на skill `plasma-web`.
+4. Для Plasma Web ориентироваться на skill `generate-page`.
 
 ## Установка
 
@@ -104,7 +104,7 @@ npm install --save styled-components@5.3.1
 ## Документация Plasma Web
 
 Для генерации UI используйте правила из:
-- `skills/plasma-web/SKILL.md`
-- `skills/plasma-web/prompts.md`
-- `skills/plasma-web/docs/components.md`
-- `skills/plasma-web/docs/examples.md`
+- `skills/generate-page/SKILL.md`
+- `skills/generate-page/prompts.md`
+- `skills/generate-page/docs/components.md`
+- `skills/generate-page/docs/examples.md`
