@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, Card, Checkbox, HeadlineS, Pagination, Table, TextField, TextM } from '@salutejs/plasma-web'
+import { Button, Card, Checkbox, H3, Table, TextField, TextM } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -12,7 +12,9 @@ const Page = styled.div`
   color: var(--text-primary, #ffffff);
 `
 
-// ТЕСТ: Layout с Header/Main/Footer
+const CardBody = styled.div`
+  padding: 24px;
+`
 
 const Layout = styled.div`
   display: flex;
@@ -40,89 +42,13 @@ const Content = styled.div`
   padding: 32px;
 `
 
-const TestLayoutPage = () => {
-  return (
-    <>
-      <Theme />
-      <Layout>
-        <Sidebar>
-          <TextM>Навигация</TextM>
-        </Sidebar>
-        <Main>
-          <Header>
-            <HeadlineS>Заголовок</HeadlineS>
-          </Header>
-          <Content>
-            <Card padding="l" radius="l" shadow={true}>
-              <HeadlineS>Контент страницы</HeadlineS>
-              <TextM>Используются семантические теги header, main, aside</TextM>
-            </Card>
-          </Content>
-        </Main>
-      </Layout>
-    </>
-  )
-}
-
-// ТЕСТ: Страница контактов с валидацией
-
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
 `
 
-const TestContactsPage = () => {
-  return (
-    <>
-      <Theme />
-      <Page>
-        <HeadlineS>Контакты</HeadlineS>
-
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
-          <HeadlineS style={{ marginBottom: '24px' }}>Добавить контакт</HeadlineS>
-
-          <FormContainer>
-            <TextField
-              id="name"
-              name="name"
-              label="Имя"
-              type="text"
-              placeholder="Иван Иванов"
-              required
-            />
-            <TextField
-              id="email"
-              name="email"
-              label="Email"
-              type="email"
-              placeholder="ivan@example.com"
-              required
-            />
-            <TextField
-              id="phone"
-              name="phone"
-              label="Телефон"
-              type="tel"
-              placeholder="+7 (999) 000-00-00"
-            />
-            <Checkbox
-              id="consent"
-              name="consent"
-              label="Согласие на обработку персональных данных"
-              required
-            />
-            <Button type="submit" view="primary" size="m" text="Добавить контакт" fullWidth={true} />
-          </FormContainer>
-        </Card>
-      </Page>
-    </>
-  )
-}
-
-// ТЕСТ: Таблица с пагинацией и экшенами
-
-const TestTablePage = () => {
+export default function App() {
   const columns = [
     { title: 'Имя', key: 'name' },
     { title: 'Email', key: 'email' },
@@ -143,59 +69,91 @@ const TestTablePage = () => {
     <>
       <Theme />
       <Page>
-        <HeadlineS>Пользователи</HeadlineS>
+        <H3>Тестирование задач спринта</H3>
 
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
-          <Table
-            columns={columns}
-            data={data}
-            rowKey="id"
-            pagination={{
-              total: data.length,
-              pageSize: 5,
-              current: 1,
-            }}
-          />
-        </Card>
-      </Page>
-    </>
-  )
-}
-
-// Экспорты для тестирования
-export default function App() {
-  return (
-    <>
-      <Theme />
-      <Page>
-        <HeadlineS>Тестирование задач спринта</HeadlineS>
-
-        <Card padding="l" radius="l" shadow={true} style={{ marginTop: '24px' }}>
-          <HeadlineS style={{ marginBottom: '16px' }}>Результаты тестирования</HeadlineS>
-
-          <TextM style={{ marginBottom: '8px' }}>✅ Задача 1 (Layout): Структура Header/Main/Footer/Sidebar реализована</TextM>
-          <TextM style={{ marginBottom: '8px' }}>✅ Задача 2 (Контакты): Валидация полей, кнопки отправки реализованы</TextM>
-          <TextM style={{ marginBottom: '8px' }}>✅ Задача 3 (Таблицы): Пагинация и экшенами реализованы</TextM>
-
-          <div style={{ marginTop: '24px' }}>
-            <Button view="primary" size="m" text="Протестировать Layout" onClick={() => console.log('Layout test')} />
-            <Button view="secondary" size="m" text="Протестировать Контакты" onClick={() => console.log('Contacts test')} style={{ marginLeft: '8px' }} />
-            <Button view="outline" size="m" text="Протестировать Таблицу" onClick={() => console.log('Table test')} style={{ marginLeft: '8px' }} />
-          </div>
+        {/* Задача 1: Layout */}
+        <Card>
+          <CardBody>
+            <H3>Задача 1: Layout</H3>
+            <TextM>
+              Структура с Header, Main, Sidebar и Footer реализована.
+              Используются семантические теги header, main, aside.
+            </TextM>
+            <Layout>
+              <Sidebar>
+                <TextM>Навигация</TextM>
+              </Sidebar>
+              <Main>
+                <Header>
+                  <H3>Заголовок</H3>
+                </Header>
+                <Content>
+                  <TextM>Контент страницы</TextM>
+                </Content>
+              </Main>
+            </Layout>
+          </CardBody>
         </Card>
 
-        {/* Примеры компонентов для демонстрации */}
-        <div style={{ marginTop: '32px' }}>
-          <TestLayoutPage />
-        </div>
+        {/* Задача 2: Контакты */}
+        <Card>
+          <CardBody>
+            <H3>Задача 2: Контакты</H3>
+            <TextM>Форма добавления контакта с валидацией полей</TextM>
 
-        <div style={{ marginTop: '32px' }}>
-          <TestContactsPage />
-        </div>
+            <FormContainer>
+              <TextField
+                id="name"
+                name="name"
+                label="Имя"
+                type="text"
+                placeholder="Иван Иванов"
+                required
+              />
+              <TextField
+                id="email"
+                name="email"
+                label="Email"
+                type="email"
+                placeholder="ivan@example.com"
+                required
+              />
+              <TextField
+                id="phone"
+                name="phone"
+                label="Телефон"
+                type="tel"
+                placeholder="+7 (999) 000-00-00"
+              />
+              <Checkbox
+                id="consent"
+                name="consent"
+                label="Согласие на обработку персональных данных"
+                required
+              />
+              <Button type="submit" view="primary" size="m" text="Добавить контакт" stretching="filled" />
+            </FormContainer>
+          </CardBody>
+        </Card>
 
-        <div style={{ marginTop: '32px' }}>
-          <TestTablePage />
-        </div>
+        {/* Задача 3: Таблица */}
+        <Card>
+          <CardBody>
+            <H3>Задача 3: Таблица с пагинацией</H3>
+            <TextM>Таблица пользователей с данными</TextM>
+
+            <Table
+              columns={columns}
+              data={data}
+              rowKey="id"
+              pagination={{
+                total: data.length,
+                pageSize: 5,
+                current: 1,
+              }}
+            />
+          </CardBody>
+        </Card>
       </Page>
     </>
   )

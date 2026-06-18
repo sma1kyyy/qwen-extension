@@ -68,12 +68,10 @@ skills/
 ├── init-ui-project/   — инициализация нового проекта
 ├── create-layout/     — создание reusable layout-компонентов
 ├── list-layouts/      — просмотр доступных layout'ов
-├── generate-page/     — генерация JSX-страниц
-└── plasma-web/        — документация и prompt-инструкции для генерации UI на Plasma Web
+└── plasma-web/        — генерация UI на Plasma Web (документация, примеры, генерация и сохранение страниц)
     ├── SKILL.md — главная инструкция для агента
     ├── README.md — описание skill
     ├── prompts.md — prompt-инструкции для Qwen
-    ├── qwen-extension.json — метаданные расширения
     └── docs/
         ├── components.md     — каталог компонентов, props и правила композиции
         └── examples.md       — эталонные запросы и ответы с примерами
@@ -97,16 +95,14 @@ skills/
 ### `list-layouts`
 Показывает список всех доступных layout'ов в проекте
 
-### `generate-page`
-Генерирует JSX-страницы в `pages/`. По умолчанию использует Plasma Web и сохраняет самодостаточный файл с экспортом `export default function App() { ... }`.
-
 ### `plasma-web`
 Помогает агенту генерировать React UI на базе Plasma Web:
 - каталог компонентов, props и правил композиции;
 - эталонные запросы и ответы для типовых UI-задач;
 - prompt-инструкции для Qwen;
 - правила подключения темы и стилей;
-- запрет на смешивание UI-kit'ов.
+- запрет на смешивание UI-kit'ов;
+- процедура генерации и сохранения страниц.
 
 ## Технологии
 
@@ -129,7 +125,7 @@ skills/
 1. Инициализировать проект: `init-ui-project`.
 2. Создать layout: `create-layout`.
 3. Посмотреть layout'ы: `list-layouts`.
-4. Сгенерировать страницу: `generate-page`.
+4. Сгенерировать страницу: обратиться к `plasma-web`.
 5. Для Plasma Web ориентироваться на skill `plasma-web`.
 
 ## Установка
@@ -153,7 +149,7 @@ skills/
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, TextL, HeadlineM } from '@salutejs/plasma-web'
+import { Button, TextL, H3 } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -169,7 +165,7 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <HeadlineM>Заголовок</HeadlineM>
+        <H3>Заголовок</H3>
         <TextL>Описание страницы</TextL>
         <Button view="primary" text="Действие" />
       </Page>
@@ -180,7 +176,7 @@ export default function App() {
 
 ## Документация Plasma Web
 
-Для генерации UI используйте правила из:
+Чтобы избежать дублирования, за инструкциями по генерации UI обращайтесь к `skills/plasma-web/`:
 - `skills/plasma-web/SKILL.md`
 - `skills/plasma-web/prompts.md`
 - `skills/plasma-web/docs/components.md`

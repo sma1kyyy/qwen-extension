@@ -28,10 +28,10 @@ const ProductCard = () => {
       <Theme />
       <Card >
         <div style={{ marginBottom: '12px' }}>
-          <Badge tone="success" size="m">В наличии</Badge>
+          <Badge view="success" size="m">В наличии</Badge>
         </div>
         <H4 style={{ marginBottom: '8px' }}>Plasma Hoodie</H4>
-        <TextM tone="neutral" style={{ marginBottom: '16px' }}>Мягкое худи для команды разработки</TextM>
+        <TextM color="var(--text-secondary)" style={{ marginBottom: '16px' }}>Мягкое худи для команды разработки</TextM>
         <TextS weight="bold" style={{ marginBottom: '16px', fontSize: '24px' }}>4 990 ₽</TextS>
         <Button view="primary" size="m" text="Купить" />
       </Card>
@@ -45,10 +45,10 @@ export default function App() {
       <Theme />
       <Card >
         <div style={{ marginBottom: '12px' }}>
-          <Badge tone="success" size="m">В наличии</Badge>
+          <Badge view="success" size="m">В наличии</Badge>
         </div>
         <H4 style={{ marginBottom: '8px' }}>Plasma Hoodie</H4>
-        <TextM tone="neutral" style={{ marginBottom: '16px' }}>Мягкое худи для команды разработки</TextM>
+        <TextM color="var(--text-secondary)" style={{ marginBottom: '16px' }}>Мягкое худи для команды разработки</TextM>
         <TextS weight="bold" style={{ marginBottom: '16px', fontSize: '24px' }}>4 990 ₽</TextS>
         <Button view="primary" size="m" text="Купить" />
       </Card>
@@ -275,15 +275,15 @@ const Grid = styled.div`
 
 const DashboardPage = () => {
   const stats = [
-    { id: 'orders', label: 'Заказы', value: '1 284', tone: 'info' },
-    { id: 'revenue', label: 'Выручка', value: '2 450 000 ₽', tone: 'success' },
-    { id: 'returns', label: 'Возвраты', value: '18', tone: 'warning' },
+    { id: 'orders', label: 'Заказы', value: '1 284', view: 'info' },
+    { id: 'revenue', label: 'Выручка', value: '2 450 000 ₽', view: 'success' },
+    { id: 'returns', label: 'Возвраты', value: '18', view: 'warning' },
   ]
 
   const clients = [
-    { id: '1', name: 'Анна Смирнова', plan: 'Pro', status: <Badge tone="success">Активен</Badge> },
-    { id: '2', name: 'Иван Петров', plan: 'Team', status: <Badge tone="warning">Ожидает оплаты</Badge> },
-    { id: '3', name: 'Мария Ким', plan: 'Enterprise', status: <Badge tone="success">Активен</Badge> },
+    { id: '1', name: 'Анна Смирнова', plan: 'Pro', status: <Badge view="success">Активен</Badge> },
+    { id: '2', name: 'Иван Петров', plan: 'Team', status: <Badge view="warning">Ожидает оплаты</Badge> },
+    { id: '3', name: 'Мария Ким', plan: 'Enterprise', status: <Badge view="success">Активен</Badge> },
   ]
 
   return (
@@ -296,8 +296,8 @@ const DashboardPage = () => {
           {stats.map((stat) => (
             <Card key={stat.id} >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                <TextM tone="neutral">{stat.label}</TextM>
-                <Badge tone={stat.tone} size="s">{stat.id}</Badge>
+                <TextM>{stat.label}</TextM>
+                <Badge view={stat.view} size="s">{stat.id}</Badge>
               </div>
               <TextS weight="bold">{stat.value}</TextS>
             </Card>
@@ -307,14 +307,14 @@ const DashboardPage = () => {
         <Card >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <H4>Последние клиенты</H4>
-            <Button view="outline" size="m" text="Экспорт" />
+            <Button view="secondary" size="m" text="Экспорт" />
           </div>
 
           {clients.map((client) => (
             <div key={client.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border-subtle)' }}>
               <div>
                 <TextM>{client.name}</TextM>
-                <TextS tone="neutral">{client.plan}</TextS>
+                <TextS color="var(--text-secondary)">{client.plan}</TextS>
               </div>
               {client.status}
             </div>
@@ -327,15 +327,15 @@ const DashboardPage = () => {
 
 export default function App() {
   const stats = [
-    { id: 'orders', label: 'Заказы', value: '1 284', tone: 'info' },
-    { id: 'revenue', label: 'Выручка', value: '2 450 000 ₽', tone: 'success' },
-    { id: 'returns', label: 'Возвраты', value: '18', tone: 'warning' },
+    { id: 'orders', label: 'Заказы', value: '1 284', view: 'info' },
+    { id: 'revenue', label: 'Выручка', value: '2 450 000 ₽', view: 'success' },
+    { id: 'returns', label: 'Возвраты', value: '18', view: 'warning' },
   ]
 
   const clients = [
-    { id: '1', name: 'Анна Смирнова', plan: 'Pro', status: <Badge tone="success">Активен</Badge> },
-    { id: '2', name: 'Иван Петров', plan: 'Team', status: <Badge tone="warning">Ожидает оплаты</Badge> },
-    { id: '3', name: 'Мария Ким', plan: 'Enterprise', status: <Badge tone="success">Активен</Badge> },
+    { id: '1', name: 'Анна Смирнова', plan: 'Pro', status: <Badge view="success">Активен</Badge> },
+    { id: '2', name: 'Иван Петров', plan: 'Team', status: <Badge view="warning">Ожидает оплаты</Badge> },
+    { id: '3', name: 'Мария Ким', plan: 'Enterprise', status: <Badge view="success">Активен</Badge> },
   ]
 
   return (
@@ -348,8 +348,8 @@ export default function App() {
           {stats.map((stat) => (
             <Card key={stat.id} >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                <TextM tone="neutral">{stat.label}</TextM>
-                <Badge tone={stat.tone} size="s">{stat.id}</Badge>
+                <TextM>{stat.label}</TextM>
+                <Badge view={stat.view} size="s">{stat.id}</Badge>
               </div>
               <TextS weight="bold">{stat.value}</TextS>
             </Card>
@@ -359,14 +359,14 @@ export default function App() {
         <Card >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <H4>Последние клиенты</H4>
-            <Button view="outline" size="m" text="Экспорт" />
+            <Button view="secondary" size="m" text="Экспорт" />
           </div>
 
           {clients.map((client) => (
             <div key={client.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border-subtle)' }}>
               <div>
                 <TextM>{client.name}</TextM>
-                <TextS tone="neutral">{client.plan}</TextS>
+                <TextS color="var(--text-secondary)">{client.plan}</TextS>
               </div>
               {client.status}
             </div>
@@ -572,7 +572,7 @@ const ProfileSummary = () => {
       <Card >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <H4>Профиль</H4>
-          <Badge tone="success">Активен</Badge>
+          <Badge view="success">Активен</Badge>
         </div>
         <Button view="primary" size="m" text="Редактировать" style={{ marginTop: '16px' }} />
       </Card>
@@ -588,7 +588,7 @@ export default function App() {
         <Card >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <H4>Профиль</H4>
-            <Badge tone="success">Активен</Badge>
+            <Badge view="success">Активен</Badge>
           </div>
           <Button view="primary" size="m" text="Редактировать" style={{ marginTop: '16px' }} />
         </Card>
@@ -598,7 +598,7 @@ export default function App() {
 }
 ```
 
-## Пример 9: Интеграция с generate-page (запись в файл)
+## Пример 9: Сохранение страницы в файл
 
 ### Запрос
 
@@ -630,21 +630,21 @@ const ProfilePage = () => {
       <Page>
         <H4>Профиль пользователя</H4>
 
-        <Card  style={{ marginTop: '24px' }}>
+        <Card>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '24px' }}>
             <Avatar url="/avatar.jpg" name="Иван Иванов" size="l" />
 
             <div style={{ flex: 1 }}>
               <H4>Иван Иванов</H4>
-              <TextM tone="neutral">ivan@example.com</TextM>
+              <TextM color="var(--text-secondary)">ivan@example.com</TextM>
 
               <div style={{ marginTop: '12px' }}>
-                <Badge tone="success">Активен</Badge>
+                <Badge view="success">Активен</Badge>
               </div>
 
               <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
                 <Button view="primary" size="m" text="Редактировать профиль" />
-                <Button view="outline" size="m" text="Изменить аватар" />
+                <Button view="secondary" size="m" text="Изменить аватар" />
               </div>
             </div>
           </div>
@@ -656,9 +656,9 @@ const ProfilePage = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
             <div>
               <TextM weight={500}>Двухфакторная аутентификация</TextM>
-              <TextM tone="neutral">Добавьте дополнительный уровень защиты</TextM>
+              <TextM color="var(--text-secondary)">Добавьте дополнительный уровень защиты</TextM>
             </div>
-            <Badge tone="success">Включено</Badge>
+            <Badge view="success">Включено</Badge>
           </div>
 
           <Button view="secondary" size="m" text="Управление" style={{ marginTop: '16px' }} stretching="filled" />
@@ -675,21 +675,21 @@ export default function App() {
       <Page>
         <H4>Профиль пользователя</H4>
 
-        <Card  style={{ marginTop: '24px' }}>
+        <Card>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '24px' }}>
             <Avatar url="/avatar.jpg" name="Иван Иванов" size="l" />
 
             <div style={{ flex: 1 }}>
               <H4>Иван Иванов</H4>
-              <TextM tone="neutral">ivan@example.com</TextM>
+              <TextM color="var(--text-secondary)">ivan@example.com</TextM>
 
               <div style={{ marginTop: '12px' }}>
-                <Badge tone="success">Активен</Badge>
+                <Badge view="success">Активен</Badge>
               </div>
 
               <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
                 <Button view="primary" size="m" text="Редактировать профиль" />
-                <Button view="outline" size="m" text="Изменить аватар" />
+                <Button view="secondary" size="m" text="Изменить аватар" />
               </div>
             </div>
           </div>
@@ -701,9 +701,9 @@ export default function App() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
             <div>
               <TextM weight={500}>Двухфакторная аутентификация</TextM>
-              <TextM tone="neutral">Добавьте дополнительный уровень защиты</TextM>
+              <TextM color="var(--text-secondary)">Добавьте дополнительный уровень защиты</TextM>
             </div>
-            <Badge tone="success">Включено</Badge>
+            <Badge view="success">Включено</Badge>
           </div>
 
           <Button view="secondary" size="m" text="Управление" style={{ marginTop: '16px' }} stretching="filled" />
@@ -785,7 +785,7 @@ export default function AdminLayout({ children }) {
 **Инструкция для записи в файл:**
 1. Создай файл `layouts/admin-layout.jsx` в проекте
 2. Скопируй код выше в файл
-3. Используй этот layout при генерации страниц через `generate-page`
+3. Используй этот layout при генерации страниц — обратитесь к скиллу `plasma-web`, он инлайнит styled-обёртки из layout'а
 
 ## Пример 11: Полный цикл работы - от запроса до файла
 
@@ -818,7 +818,7 @@ export default function AdminLayout({ children }) {
 - Экспортируй как `export default function App() { ... }`
 - Импортируй компоненты из `@salutejs/plasma-web`
 - Импортируй тему из `@salutejs/plasma-themes`
-- Используй `view` (primary/secondary/outline/ghost/danger) для кнопок
+- Используй `view` (primary/secondary/clear/success/warning/critical) для кнопок
 - Используй `size` (s/m/l) для компонентов
 - У Card нет props `padding`, `radius`, `shadow` — стилизуй через styled-обёртку
 
@@ -852,7 +852,7 @@ const ActionButtons = styled.div`
   gap: 8px;
 `
 
-const UsersTable = () => {
+export default function App() {
   const columns = [
     { title: 'Имя', key: 'name' },
     { title: 'Email', key: 'email' },
@@ -862,11 +862,11 @@ const UsersTable = () => {
   ]
 
   const data = [
-    { id: '1', name: 'Иван Иванов', email: 'ivan@example.com', role: 'Администратор', status: <Badge tone="success">Активен</Badge> },
-    { id: '2', name: 'Петр Петров', email: 'petr@example.com', role: 'Менеджер', status: <Badge tone="success">Активен</Badge> },
-    { id: '3', name: 'Мария Сидорова', email: 'maria@example.com', role: 'Пользователь', status: <Badge tone="warning">Неактивен</Badge> },
-    { id: '4', name: 'Алексей Козлов', email: 'alexey@example.com', role: 'Пользователь', status: <Badge tone="success">Активен</Badge> },
-    { id: '5', name: 'Елена Новикова', email: 'elena@example.com', role: 'Менеджер', status: <Badge tone="success">Активен</Badge> },
+    { id: '1', name: 'Иван Иванов', email: 'ivan@example.com', role: 'Администратор', status: <Badge view="success">Активен</Badge> },
+    { id: '2', name: 'Петр Петров', email: 'petr@example.com', role: 'Менеджер', status: <Badge view="success">Активен</Badge> },
+    { id: '3', name: 'Мария Сидорова', email: 'maria@example.com', role: 'Пользователь', status: <Badge view="warning">Неактивен</Badge> },
+    { id: '4', name: 'Алексей Козлов', email: 'alexey@example.com', role: 'Пользователь', status: <Badge view="success">Активен</Badge> },
+    { id: '5', name: 'Елена Новикова', email: 'elena@example.com', role: 'Менеджер', status: <Badge view="success">Активен</Badge> },
   ]
 
   return (
@@ -875,31 +875,7 @@ const UsersTable = () => {
       <Page>
         <H4>Пользователи</H4>
 
-        <Card  style={{ marginTop: '24px' }}>
-          <Table
-            columns={columns}
-            data={data}
-            rowKey="id"
-            pagination={{
-              total: data.length,
-              pageSize: 5,
-              current: 1,
-            }}
-          />
-        </Card>
-      </Page>
-    </>
-  )
-}
-
-export default function App() {
-  return (
-    <>
-      <Theme />
-      <Page>
-        <H4>Пользователи</H4>
-
-        <Card  style={{ marginTop: '24px' }}>
+        <Card>
           <Table
             columns={columns}
             data={data}
@@ -931,7 +907,7 @@ const columns = [
     key: 'actions',
     render: (record) => (
       <ActionButtons>
-        <Button view="outline" size="s" text="Редактировать" />
+        <Button view="secondary" size="s" text="Редактировать" />
         <Button view="danger" size="s" text="Удалить" />
       </ActionButtons>
     ),
@@ -981,7 +957,7 @@ const ContactsPage = () => {
       <Page>
         <H4>Контакты</H4>
 
-        <Card  style={{ marginTop: '24px' }}>
+        <Card>
           <H4 style={{ marginBottom: '24px' }}>Добавить контакт</H4>
 
           <FormContainer>
@@ -1021,7 +997,7 @@ const ContactsPage = () => {
         <Card  style={{ marginTop: '16px' }}>
           <H4 style={{ marginBottom: '16px' }}>Список контактов</H4>
 
-          <TextM tone="neutral">Контактов пока нет</TextM>
+          <TextM color="var(--text-secondary)">Контактов пока нет</TextM>
         </Card>
       </Page>
     </>
@@ -1035,7 +1011,7 @@ export default function App() {
       <Page>
         <H4>Контакты</H4>
 
-        <Card  style={{ marginTop: '24px' }}>
+        <Card>
           <H4 style={{ marginBottom: '24px' }}>Добавить контакт</H4>
 
           <FormContainer>
@@ -1075,7 +1051,7 @@ export default function App() {
         <Card  style={{ marginTop: '16px' }}>
           <H4 style={{ marginBottom: '16px' }}>Список контактов</H4>
 
-          <TextM tone="neutral">Контакто�� пока нет</TextM>
+          <TextM color="var(--text-secondary)">Контактов пока нет</TextM>
         </Card>
       </Page>
     </>
@@ -1114,15 +1090,15 @@ import { Toast } from '@salutejs/plasma-web'
 
 const [toastOpen, setToastOpen] = useState(false)
 const [toastMessage, setToastMessage] = useState('')
-const [toastTone, setToastTone] = useState('success')
+const [toastView, setToastView] = useState('success')
 
 // После успешной отправки:
 setToastMessage('Контакт успешно добавлен')
-setToastTone('success')
+setToastView('success')
 setToastOpen(true)
 
 // Для ошибки:
 setToastMessage('Ошибка при добавлении контакта')
-setToastTone('danger')
+setToastView('critical')
 setToastOpen(true)
 ```

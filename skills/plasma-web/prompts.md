@@ -36,13 +36,13 @@
 
 ## Интеграция с другими skills
 
-### При работе с generate-page
+### Сохранение страницы в файл
 
 Если пользователь просит сохранить страницу в файл:
 
 1. Сначала сгенерируй полный JSX-код компонента
 2. Сообщите пользователю: "Я сгенерировал код. Сохранить его в pages/{имя}.jsx?"
-3. П��сле подтверждения передайте код в skill `generate-page` с указанием имени файла
+3. После подтверждения создай файл `pages/{имя}.jsx` с кодом
 
 ### При работе с create-layout
 
@@ -165,6 +165,9 @@
 - [ ] JSX не содержит "голых" div — используются семантические теги или styled-components.
 - [ ] JSX не содержит лишних комментариев и псев��окода.
 - [ ] НЕ используются `HeadlineL/M/S`, `Section`, `Tag`, `Radio` (это галлюцинации — см. docs/components.md).
+- [ ] `Badge` использует `view`, а не `tone`.
+- [ ] Typography использует `color="var(--text-secondary)"`, а не `tone="neutral"`.
+- [ ] `Card` не получает `padding`/`radius`/`shadow`.
 
 ## Negative examples
 
@@ -211,19 +214,23 @@ const Page = styled.div`
   color: var(--text-primary, #ffffff);
 `
 
-const Product = () => {
+const CardBody = styled.div`
+  padding: 24px;
+`
+
+export default function App() {
   return (
     <>
       <Theme />
       <Page>
-        <Card padding="l" radius="l" shadow={true}>
-          <TextM>4 990 ₽</TextM>
-          <Button view="primary" size="m" text="Купить" />
+        <Card>
+          <CardBody>
+            <TextM>4 990 ₽</TextM>
+            <Button view="primary" size="m" text="Купить" />
+          </CardBody>
         </Card>
       </Page>
     </>
   )
 }
-
-export default Product
 ```

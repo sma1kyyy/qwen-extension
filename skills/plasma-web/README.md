@@ -40,7 +40,7 @@ npm install --save @salutejs/plasma-icons
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, HeadlineM, TextM } from '@salutejs/plasma-web'
+import { Button, H3, TextM } from '@salutejs/plasma-web'
 
 const Theme = createGlobalStyle(plasma_web__dark)
 
@@ -56,7 +56,7 @@ export default function App() {
     <>
       <Theme />
       <Page>
-        <HeadlineM>Plasma Web</HeadlineM>
+        <H3>Plasma Web</H3>
         <TextM>Компоненты рендерятся с темой.</TextM>
         <Button view="primary" text="Готово" />
       </Page>
