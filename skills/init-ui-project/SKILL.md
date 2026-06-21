@@ -56,131 +56,17 @@ description: Инициализирует текущую папку как UI-п
 Создайте в корне каталог `docs`
 
 Создайте файл `QWEN.md` со следующим содержимым:
-```
-# UI Code Generator Extension
+```markdown
+# UI проект — {Название проекта}
 
-Расширение для генерации React/JSX интерфейсов на базе Plasma Web (`@salutejs/plasma-web`).
+Стек: `@salutejs/plasma-web`, `@salutejs/plasma-themes`, `styled-components@5.3.1`, JSX.
 
-## Структура проекта
+## Правила
 
-```
-skills/
-├── init-ui-project/   — инициализация нового проекта
-├── create-layout/     — создание reusable layout-компонентов
-├── list-layouts/      — просмотр доступных layout'ов
-└── plasma-web/        — генерация UI на Plasma Web (документация, примеры, генерация и сохранение страниц)
-    ├── SKILL.md — главная инструкция для агента
-    ├── README.md — описание skill
-    ├── prompts.md — prompt-инструкции для Qwen
-    └── docs/
-        ├── components.md     — каталог компонентов, props и правила композиции
-        └── examples.md       — эталонные запросы и ответы с примерами
-```
-
-## Доступные навыки (skills)
-
-### `init-ui-project`
-Создает структуру проекта с валидацией и подтверждением:
-- запрос названия и описания проекта;
-- проверка на пустые значения;
-- подтверждение данных перед сохранением;
-- создание файлов `ui-project.xml`, `QWEN.md` и папок `pages`, `docs`
-
-### `create-layout`
-Создает reusable layout-компоненты:
-- выбор типа layout'а;
-- опция добавления навигации;
-- валидация и подтверждение данных
-
-### `list-layouts`
-Показывает список всех доступных layout'ов в проекте
-
-### `plasma-web`
-Помогает агенту генерировать React UI на базе Plasma Web:
-- каталог компонентов, props и правил композиции;
-- эталонные запросы и ответы для типовых UI-задач;
-- prompt-инструкции для Qwen;
-- правила подключения темы и стилей;
-- запрет на смешивание UI-kit'ов;
-- процедура генерации и сохранения страниц.
-
-## Технологии
-
-- `@salutejs/plasma-web`
-- `@salutejs/plasma-themes`
-- `styled-components@5.3.1`
-- JSX
-
-## Главные ограничения
-
-- Каждый файл страницы должен подключать тему через `createGlobalStyle`.
-- Компонент страницы должен экспортироваться строго как `export default function App() { ... }`.
-- Нельзя использовать `@coreui/react`, `@prisma-ui/react`, MUI, Ant Design и другие UI-kit'ы вместе с Plasma Web.
-- Запрет "голых" div: для layout используйте семантические теги (`<header>`, `<main>`, `<footer>`, `<aside>`) или styled-components, а не пустые `div`.
-- Источник истины по компонентам и их props — MCP-сервер `plasma-web` (`@salutejs/sdds-mcp`); не выдумывайте API.
-- Hooks не нужны для статичных страниц; используйте их только для реально управляемой интерактивности.
-
-## Как использовать
-
-1. Инициализировать проект: `init-ui-project`.
-2. Создать layout: `create-layout`.
-3. Посмотреть layout'ы: `list-layouts`.
-4. Сгенерировать страницу: обратиться к `plasma-web`.
-5. Для Plasma Web ориентироваться на skill `plasma-web`.
-
-## Установка
-
-Скопируйте расширение в папку `~/.qwen/extensions/` или укажите путь в настройках Qwen Code:
-
-```json
-{
-  "extensions": [
-    {
-      "name": "ui-code-generator",
-      "path": "путь/к/ui-generator-extension"
-    }
-  ]
-}
-```
-
-## Базовый шаблон страницы
-
-```jsx
-import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
-import { plasma_web__dark } from '@salutejs/plasma-themes'
-import { Button, TextL, H3 } from '@salutejs/plasma-web'
-
-const Theme = createGlobalStyle(plasma_web__dark)
-
-const Page = styled.div`
-  min-height: 100vh;
-  padding: 32px;
-  background: var(--surface-solid-default, #080808);
-  color: var(--text-primary, #ffffff);
-`
-
-export default function App() {
-  return (
-    <>
-      <Theme />
-      <Page>
-        <H3>Заголовок</H3>
-        <TextL>Описание страницы</TextL>
-        <Button view="primary" text="Действие" />
-      </Page>
-    </>
-  )
-}
-```
-
-## Документация Plasma Web
-
-Чтобы избежать дублирования, за инструкциями по генерации UI обращайтесь к `skills/plasma-web/`:
-- `skills/plasma-web/SKILL.md`
-- `skills/plasma-web/prompts.md`
-- `skills/plasma-web/docs/components.md`
-- `skills/plasma-web/docs/examples.md`
+- Экспорт страниц — только `export default function App() { ... }`.
+- Тема через `createGlobalStyle` — обязательна.
+- Не смешивать Plasma Web с другими UI-kit'ами.
+- Документацию по компонентам брать из MCP `@plasma-web`.
 ```
 
 **Примечание:** Все каталоги и файлы создаются только после подтверждения пользователем.

@@ -1,110 +1,35 @@
 # UI Code Generator Extension
 
-Расширение для генерации React/JSX интерфейсов на базе Plasma Web (`@salutejs/plasma-web`).
+Расширение для генерации React/JSX интерфейсов на базе **`@salutejs/plasma-web`**.
 
-## Структура проекта
+## Стек
 
-```
-skills/
-├── init-ui-project/   — инициализация нового проекта
-├── create-layout/     — создание reusable layout-компонентов
-├── list-layouts/      — просмотр доступных layout'ов
-└── generate-page/     — генерация React/JSX страниц на Plasma Web
-    ├── SKILL.md — главная инструкция для агента
-    ├── README.md — описание skill
-    ├── prompts.md — prompt-инструкции для Qwen
-    └── docs/
-        ├── components.md     — каталог компонентов, props и правила композиции
-        └── examples.md       — эталонные запросы и ответы с примерами
-```
-
-## Доступные навыки (skills)
-
-### `init-ui-project`
-Создает структуру проекта с валидацией и подтверждением:
-- запрос названия и описания проекта;
-- проверка на пустые значения;
-- подтверждение данных перед сохранением;
-- создание файлов `ui-project.xml`, `QWEN.md` и папок `pages`, `docs`
-
-### `create-layout`
-Создает reusable layout-компоненты:
-- выбор типа layout'а;
-- опция добавления навигации;
-- валидация и подтверждение данных
-
-### `list-layouts`
-Показывает список всех доступных layout'ов в проекте
-
-### `generate-page`
-Помогает агенту генерировать React UI на базе Plasma Web:
-- каталог компонентов, props и правила композиции;
-- эталонные запросы и ответы для типовых UI-задач;
-- prompt-инс��рукции для Qwen;
-- правила подключения темы и стилей;
-- запрет на смешивание UI-kit'ов;
-- генерация страниц и публикация через MCP `ui-generator-mcp`.
-
-## Технологии
-
-- `@salutejs/plasma-web`
-- `@salutejs/plasma-themes`
+- `react`, `react-dom`
+- `@salutejs/plasma-web`, `@salutejs/plasma-themes`
 - `styled-components@5.3.1`
 - JSX
 
-## Зависимости для песочницы
+## Документация компонентов
 
-Для корректного рендеринга в песочнице необходимы:
-
-**Обязательные пакеты:**
-```bash
-npm install --save react react-dom
-npm install --save @salutejs/plasma-web @salutejs/plasma-themes
-npm install --save styled-components@5.3.1
-```
-
-**Шрифты (обязательны для правильного отображения текста):**
-```html
-<link rel="stylesheet" href="https://cdn-app.sberdevices.ru/shared-static/0.0.0/styles/SBSansText.0.2.0.css" />
-<link rel="stylesheet" href="https://cdn-app.sberdevices.ru/shared-static/0.0.0/styles/SBSansDisplay.0.2.0.css" />
-```
-
-Без шрифтов текст будет отображаться с system fonts, что нарушает дизайн-систему Plasma Web.
+Всю документацию по компонентам Plasma Web (props, примеры, ограничения) брать **только** из MCP-сервера `@plasma-web`. Локальные файлы `docs/examples.md` и `docs/components.md` — устаревшие, не использовать.
 
 ## Главные ограничения
 
-- Каждый фа��л страницы должен подключать тему через `createGlobalStyle`.
-- Компонент страницы должен экспортироваться строго как `export default function App() { ... }`.
-- Нельзя использовать `@coreui/react`, `@prisma-ui/react`, MUI, Ant Design и другие UI-kit'ы вместе с Plasma Web.
-- Для layout используйте `div` или локальные styled-components, а не несуществующие `Page`, `Stack`, `Section`, если они не импортируются из Plasma Web в официальной документации для текущей задачи.
-- Hooks не нужны для статичных страниц; используйте их только для реально управляемой интерактивности.
+- Каждый файл страницы подключает тему через `createGlobalStyle`.
+- Экспорт компонента — только `export default function App() { ... }`.
+- Запрещено смешивать Plasma Web с другими UI-kit'ами (MUI, Ant Design и т.д.).
+- Для layout — `div` или локальные styled-components, не `Page`/`Stack`/`Section` (если они не импортируются из Plasma Web).
+- Hooks только для реальной интерактивности, не для статичных страниц.
+- При переполнении карточек по горизонтали — уменьшать кол-во колонок, а не ширину карточек.
 
-## Как использовать
+## Структура
 
-1. Инициализировать проект: `init-ui-project`.
-2. Создать layout: `create-layout`.
-3. Посмотреть layout'ы: `list-layouts`.
-4. Для Plasma Web ориентироваться на skill `generate-page`.
-
-## Установка
-
-Скопируйте расширение в папку `~/.qwen/extensions/` или укажите путь в настройках Qwen Code:
-
-```json
-{
-  "extensions": [
-    {
-      "name": "ui-code-generator",
-      "path": "путь/к/ui-generator-extension"
-    }
-  ]
-}
 ```
-
-## Документация Plasma Web
-
-Для генерации UI используйте правила из:
-- `skills/generate-page/SKILL.md`
-- `skills/generate-page/prompts.md`
-- `skills/generate-page/docs/components.md`
-- `skills/generate-page/docs/examples.md`
+pages/             — сгенерированные страницы
+skills/
+├── create-layout/   — создание layout-каркасов
+├── generate-page/   — генерация страниц (SKILL.md — основной маршрут)
+├── init-ui-project/ — инициализация проекта
+├── list-layouts/    — просмотр layout'ов
+└── update-page/     — изменение существующих страниц
+```
